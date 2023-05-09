@@ -20,8 +20,17 @@ console.log(`The server has started and is listening on port number: ${port}`);
 function RouteSetting(req, res) {
   const url_parts = url.parse(req.url);
   switch (url_parts.pathname) {
+
+    case '/img/1.jpg':
+    case '/img/2.jpg':
+    case '/img/3.jpg':
+      const img = fs.readFileSync(`.${url_parts.pathname}`);
+      res.writeHead(200, {'Content-Type': 'image/jpeg'});
+      res.end(img);
+      break;
+
     case '/':
-      const username = 'sample_username'; // 仮のユーザー名
+      const username = ["","sample_username1","sample_username2","sample_username3"]; // 仮のユーザー名
       const texts = [
         "",
         "素敵なシャネルのバッグです。シャネルのバッグは数十万円から百万円以上の値段で取引されており、その人気が伺える商品になっております。\nなんて素敵なんだろう。いやー素晴らしい。\nこんな素晴らしいものがこの世にあるだろうか？いやない。あるはずがない。なぜならシャネルだから。シャネルは素晴らしい。なんて素晴らしいのだろう\nそう思いませんか？",
