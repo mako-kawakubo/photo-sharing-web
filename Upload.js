@@ -1,6 +1,11 @@
 const fs = require('fs');
-const image = fs.readFileSync('./img/1.jpg');
-const base64Image = image.toString('base64');
+
+
+const image1 = fs.readFileSync('./img/1.jpg');
+const base64Image1 = image1.toString('base64');
+
+const image2 = fs.readFileSync('./img/1.jpg');
+const base64Image2 = image2.toString('base64');
 
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json');
@@ -11,7 +16,11 @@ admin.initializeApp({
 });
 
 const ref = admin.database().ref('/img');
-ref.child("1").set(base64Image)
+
+ref.child("1").set(base64Image1)
+ref.child("2").set(base64Image2)
+
+
   .then(() => {
     console.log('Image uploaded successfully');
   })

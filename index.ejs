@@ -37,6 +37,38 @@
     <p><a href="/sub/">下層ページへ</a></p>
     <script src="main.js"></script>
 
+    <!--Firebase連携の表示をここに挿入してみる-->
+    <div class="pt-5 bg-light">
+      <div class="container">
+        <div class="row">
+           <% sortedPosts.forEach(post => { %>
+            <div class="col-lg-4 mb-5">
+              <div class="card box-shadow">
+                <img class="card-img-top" src="../img/<%= post.imageName %>" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">@<%= post.username %></h5>
+                  <p class="card-text"><%= post.text %></p>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  </div>
+                  <small class="text-muted"><%= formatDate(post.createdAt) %></small>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+    
+    
+
+    <!-- ここまで -->
+
+
+ 
     <div class="pt-5 bg-light">
       <div class="container">
         <div class="row">
@@ -60,10 +92,11 @@
                 </div>
               </div>
             </div>
-            <% } %>
+           <% } %>
         </div>
       </div>
-    </div>
+    </div> 
+  
 </body>
 </section>
 </body>
