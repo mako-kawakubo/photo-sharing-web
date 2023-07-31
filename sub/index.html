@@ -1,15 +1,41 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>下層ぺえじ</title>
-        <link rel="stylesheet" href="/styleCss">
-    </head>
+
+<head>
+  <meta charset="utf-8">
+  <title>下層ぺえじ</title>
+  <link rel="stylesheet" href="/styleCss">
+</head>
+
 <body>
-    <section>
-        <h1>ここは下層ページです</h1>
-        <p>Node.jsで複数ページを作るテスト。</p>
-        <p><a href="/">TOPページへ</a></p>
-    </section>
+  <section>
+    <h1>ここは下層ページです</h1>
+    <p>Node.jsで複数ページを作るテスト。</p>
+    <p><a href="/">TOPページへ</a></p>
+  </section>
+  <div id="app">
+    <!-- データ表示のためのコード -->
+    <ul id="userDataList"></ul>
+  </div>
+  <form action="/uploadImage" method="POST" enctype="multipart/form-data">
+    <label>
+      プロフィール画像をアップロード
+      <input type="file" name="image" />
+    </label>
+    <br />
+    <label>
+      投稿文を入力
+      <input type="text" name="postText" />
+    </label>
+    <button type="submit">アップロード</button>
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.7.3/dist/tf.min.js"></script>
+  <script src="/main.js"></script>
+
 </body>
+
 </html>
