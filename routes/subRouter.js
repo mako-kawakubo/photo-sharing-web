@@ -5,6 +5,8 @@ const router = express.Router();
 const fs = require('fs');
 const ejs = require('ejs');
 const admin = require('firebase-admin');
+const { bucketURL } = require('../firebase/firebase'); // firebase.jsからbucketURLをインポート
+
 
 const multer = require('multer');
 const upload = multer();
@@ -19,7 +21,7 @@ router.post('/uploadImage', upload.single('image'), (req, res) => {
       return;
     }
   
-    const bucket = admin.storage().bucket('gs://realtime-chat-e1a23.appspot.com');
+    const bucket = admin.storage().bucket(bucketURL);
     const randomId = Math.random().toString(32).substring(2);
     const fileRef = bucket.file(`posts/${randomId}.jpg`);
   
