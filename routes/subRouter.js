@@ -6,24 +6,6 @@ const fs = require('fs');
 const ejs = require('ejs');
 const admin = require('firebase-admin');
 
-
-const serviceAccount = require('../serviceAccountKey.json');
-
-// 初期化するFirebaseアプリの名前を指定
-const appName = 'https://realtime-chat-e1a23-default-rtdb.firebaseio.com'
-
-// 既に同じ名前のFirebaseアプリが初期化されているか確認
-const existingApp = admin.apps.find(app => app.name === appName);
-
-if (!existingApp) {
-    // 指定した名前のFirebaseアプリが初期化されていない場合のみ、initializeApp()を呼び出す
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      databaseURL: 'https://realtime-chat-e1a23-default-rtdb.firebaseio.com'
-    }, appName);
-  }
-  
-
 const multer = require('multer');
 const upload = multer();
 

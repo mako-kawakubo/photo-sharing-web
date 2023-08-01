@@ -3,19 +3,10 @@ const fs = require('fs');
 const ejs = require('ejs');
 const router = express.Router(); // ルータを定義
 
+
 // Firebase Admin SDKの初期化
 const admin = require('firebase-admin');
-const serviceAccount = require('../serviceAccountKey.json');
-
-// 画像アップロード用
-const multer = require('multer');
-const upload = multer();
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://realtime-chat-e1a23-default-rtdb.firebaseio.com'
-});
-
+  
 // 他のページの読み込み
 const styleCss = fs.readFileSync('./css/style.css', 'UTF-8');
 

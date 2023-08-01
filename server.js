@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// Firebase Admin SDKの初期化
+require('./firebase/firebase');
+
 // メインページ
 const indexRouter = require('./routes/index');
 app.use('/', indexRouter); // / へのルート
