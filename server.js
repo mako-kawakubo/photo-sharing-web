@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// テンプレートエンジンを設定
+app.set('view engine', 'ejs'); 
+
 // Firebase Admin SDKの初期化
 // require('./firebase/firebase');
 require('./firebase/firebase_insta.js');
