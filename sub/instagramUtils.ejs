@@ -1,7 +1,8 @@
 <!-- instagramUtils.ejs -->
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">-->
+      <link rel="stylesheet" href="/substyleCss">
     <meta charset="utf-8">
     <title>サブページ</title>
   </head>
@@ -17,7 +18,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
       integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
       crossorigin="anonymous"></script>
-
+      <p><a href="/">TOPページへ</a></p>
+<!--
 <div class="pt-5 bg-light">
     <div class="container">
       <div class="row">
@@ -35,6 +37,53 @@
     <% }) %>
 </div>
 </div>
+</div>
+-->
+
+<div class="container">
+  <form action="/uploadImage" method="POST" enctype="multipart/form-data">
+    <label>
+      画像をアップロード
+      <input type="file" name="image" class="form-control-file">
+    </label>
+    <br>
+    <label>
+      投稿文を入力
+      <input type="text" name="postText" class="form-control">
+    </label>
+    <button type="submit" class="btn btn-primary">アップロード</button>
+  </form>
+</div>
+
+<div class="container">
+  <% imageData.forEach(image=> { %>
+    <div class="frame">
+      <div class="photo_head flex">
+        <div class="icon"><img width="48" height="48" src="https://img.icons8.com/emoji/48/rabbit-face-emoji.png"
+            alt="rabbit-face-emoji" /></div>
+        <p>Designer</p>
+      </div>
+      <div class="photo">
+        <div class="post">
+          <img src="<%= image.url %>" alt="<%= image.name %>"class="card-img-top">
+          <!--<img src="https://placehold.jp/150x150.png" alt="<%= image.name %>" class="card-img-top">-->
+          <p>
+            <%= image.name %>
+          </p>
+        </div>
+      </div>
+      <div class="link_area flex">
+        <div class="left flex">
+          <span><img src="https://img.icons8.com/glyph-neue/64/love-circled--v1.png" alt="love-circled--v1"/></span>
+          <span><img  src="https://img.icons8.com/external-inkubators-detailed-outline-inkubators/25/external-comment-video-interface-inkubators-detailed-outline-inkubators.png" alt="external-comment-video-interface-inkubators-detailed-outline-inkubators"/></span>
+          <span><img  src="https://img.icons8.com/external-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto/64/external-paper-plane-design-thinking-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto.png" alt="external-paper-plane-design-thinking-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto"/></span>
+        </div>
+        <div class="right">
+          <span><img width="32" height="32" src="https://img.icons8.com/external-anggara-outline-color-anggara-putra/32/external-bookmark-ecommerce-interface-anggara-outline-color-anggara-putra.png" alt="external-bookmark-ecommerce-interface-anggara-outline-color-anggara-putra"/></span>
+        </div>
+      </div>
+    </div>
+    <% }) %>
 </div>
 
 </section>

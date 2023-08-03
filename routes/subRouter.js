@@ -5,13 +5,23 @@ const router = express.Router();
 const fs = require('fs');
 const ejs = require('ejs');
 const admin = require('firebase-admin');
-const { bucketURL } = require('../firebase/firebase'); // firebase.jsからbucketURLをインポート
+// const { bucketURL } = require('../firebase/firebase'); // firebase.jsからbucketURLをインポート
+const { bucketURL } = require('../firebase/firebase_insta'); // firebase.jsからbucketURLをインポート
 
 
+/*
+// CSSの読み込み
+const substyleCss = fs.readFileSync('./css/substyle.css', 'UTF-8');
+// /styleCss へのルート
+router.get('/substyleCss', (req, res) => {
+    res.set('Content-Type', 'text/css'); // コンテンツタイプを設定
+    res.send(substyleCss); // CSSファイルを送信
+  });
+*/
 const multer = require('multer');
 const upload = multer();
 
-const subPage = fs.readFileSync('./sub/index.html', 'UTF-8');
+// const subPage = fs.readFileSync('./sub/index.html', 'UTF-8');
 
 // テキストボックスに入力した任意の投稿文をFirebaseに保存する
 router.post('/uploadImage', upload.single('image'), (req, res) => {
@@ -46,16 +56,39 @@ router.post('/uploadImage', upload.single('image'), (req, res) => {
           url: downloadUrl,
         };
   
-        // Firebase Realtime Databaseに画像情報を保存
-        return admin.database().ref('/images').push(imageInfo);
-      })
-      .then(() => {
-        res.status(200).send('Image uploaded successfully');
-      })
-      .catch((error) => {
-        console.error('Image upload failed:', error);
-        res.status(500).send('An error occurred while uploading the image.');
-      });
+       // Firebase Realtime Databaseに画像情報を保存
+       const imagesRef = admin.database().ref('/images');
+       imagesRef.once('value', (snapshot) => {
+         if (!snapshot.exists()) {
+           // /imagesノードが存在しない場合、新規作成する
+           imagesRef.set(true)
+             .then(() => {
+               return imagesRef.push(imageInfo);
+             })
+             .then(() => {
+               res.status(200).send('Image uploaded successfully');
+             })
+             .catch((error) => {
+               console.error('Image upload failed:', error);
+               res.status(500).send('An error occurred while uploading the image.');
+             });
+         } else {
+           // /imagesノードが既に存在する場合
+           return imagesRef.push(imageInfo)
+             .then(() => {
+               res.status(200).send('Image uploaded successfully');
+             })
+             .catch((error) => {
+               console.error('Image upload failed:', error);
+               res.status(500).send('An error occurred while uploading the image.');
+             });
+         }
+       });
+     })
+     .catch((error) => {
+       console.error('Image upload failed:', error);
+       res.status(500).send('An error occurred while uploading the image.');
+     });
 });
 
 // /sub ページのルート
@@ -74,6 +107,7 @@ router.get('/', (req, res) => {
           };
         });
         
+        /*
         // instagramUtils.ejsを直接読み込んでレンダリングする
         renderInstagramUtilsEjs(imageData)
           .then((renderedHtml) => {
@@ -90,6 +124,22 @@ router.get('/', (req, res) => {
         console.error('Failed to retrieve data:', error);
         res.status(500).send('Failed to retrieve data');
       });
+      */
+
+            // instagramUtils.ejsを直接読み込んでレンダリングする
+            renderInstagramUtilsEjs(imageData)
+            .then((renderedHtml) => {
+              res.send(renderedHtml);
+            })
+            .catch((error) => {
+              console.error('Failed to render instagramUtils.ejs:', error);
+              res.status(500).send('Failed to render instagramUtils.ejs');
+            });
+        })
+        .catch((error) => {
+          console.error('Failed to retrieve data:', error);
+          res.status(500).send('Failed to retrieve data');
+        });
 });
 
 
@@ -108,5 +158,9 @@ function renderInstagramUtilsEjs(imageData) {
       });
     });
   }
+
+
+
+
 
 module.exports = router;

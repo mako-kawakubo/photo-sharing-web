@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const router = express.Router();
 
-const otherPage = fs.readFileSync('./other.html', 'UTF-8');
+const otherPage = fs.readFileSync('./other/other.html', 'UTF-8');
 
 // /other.html へのルート
 router.get('/', (req, res) => {

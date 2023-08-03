@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>下層ぺえじ</title>
   <link rel="stylesheet" href="/styleCss">
+  <!--link rel="stylesheet" href="/substyleCss"-->
 </head>
 
 <body>
@@ -14,7 +15,7 @@
     <p><a href="/">TOPページへ</a></p>
   </section>
   <div id="app">
-    <!-- データ表示のためのコード -->
+    <!-- subRouter.js→instagramUtils.ejsを直接読み込んでレンダリングでHTML生成 -->
     <ul id="userDataList"></ul>
   </div>
   <form action="/uploadImage" method="POST" enctype="multipart/form-data">

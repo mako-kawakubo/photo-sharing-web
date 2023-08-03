@@ -1,15 +1,16 @@
 const admin = require('firebase-admin');
 const fs = require('fs');
+const path = require('path');
 
-const serviceAccount = require('./serviceAccountKey.json');
+const serviceAccount = require('./.env/firebase_instalike.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://realtime-chat-e1a23-default-rtdb.firebaseio.com'
+    databaseURL: 'https://instalike-17bef-default-rtdb.firebaseio.com/'
   });
 
 // 投稿データ
-const posts = [
+const img = [
   {
     imageName: "1.jpg",
     username: "sample_username1",
@@ -29,11 +30,16 @@ const posts = [
 
 // Firebase Realtime Databaseの参照
 const db = admin.database();
-const postsRef = db.ref('posts');
+const postsRef = db.ref('img');
 
 // データの追加
-posts.forEach((post) => {
+img.forEach((post) => {
   const imagePath = `./img/${post.imageName}`; // 画像のパス
+    // 画像フォルダを作成
+    const imgFolder = path.dirname(imagePath);
+    if (!fs.existsSync(imgFolder)) {
+      fs.mkdirSync(imgFolder, { recursive: true });
+    }
   const image = fs.readFileSync(imagePath);
   const base64Image = image.toString('base64');
 
