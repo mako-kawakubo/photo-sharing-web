@@ -20,6 +20,14 @@
         </svg>
         <strong>RecipeBlog</strong>
       </a>
+      <% if (isLoggedIn) { %>
+        <p>
+          <%= isUsername %>さんこんにちは！
+        </p>
+        <a href="/logout">ログアウト</a> <!-- ログイン中はログアウトボタンを表示 -->
+        <% } else { %>
+          <p>ログアウト中</p>
+          <% } %>
     </div>
   </div>
   <section>
@@ -31,9 +39,12 @@
       crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
       integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-      crossorigin="anonymous"></script>
-    <p><a href="/other/">別ページへ</a></p>
-    <p><a href="/sub/">下層ページへ</a></p>
+      crossorigin="anonymous"></script>    
+    <% if (isLoggedIn) { %>
+    <p><a href="/sub">マイページへ</a></p>
+    <% } else { %>
+      <p><a href="/other/">ログインページへ</a></p>
+      <% } %>
     <script src="main.js"></script>
 
 
@@ -63,7 +74,6 @@
         </div>
       </div>
     </div>
-</body>
 </section>
 </body>
 

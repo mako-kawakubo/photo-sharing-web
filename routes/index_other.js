@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 
 const admin = require('firebase-admin');
-const firebaseInsta = require('../firebase/firebase_insta.js');
+
 
 
 
@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
   const { username } = req.body;
 
   try {
-    // TODO:後で書き換え→Firebase Realtime Databaseから"user"を一度すべて取得
+    // TODO: 後で書き換え→Firebase Realtime Databaseから"user"を一度すべて取得
     const userInfoSnapshot = await admin.database().ref('userinfo').once('value');
     const allUsersInfo = userInfoSnapshot.val();
     console.log(allUsersInfo);
@@ -43,7 +43,6 @@ router.post('/login', async (req, res) => {
       // "user"の中にusernameが存在するかを比較
       
       if (Object.values(allUsersInfo).some((user) => user.user === username)) {
-        console.log(user.user);
         console.log(username);
         // ログインに成功した場合はセッションにログイン情報を保存
         req.session.isLoggedIn = true;
@@ -53,19 +52,23 @@ router.post('/login', async (req, res) => {
       } else {
         console.log(username+":else1");
         // ユーザーがデータベースに存在しない場合
-        res.render('login', { errorMessage: 'ログインに失敗しました' });
+        return res.send('<script>alert("ログインに失敗しました"); window.location.href="/other/";</script>')
       }
     } else {
       console.log(username+":else");
       // データベースに"user"が存在しない場合
-      res.render('login', { errorMessage: 'ログインに失敗しました' });
+      return res.send('<script>alert("ログインに失敗しました"); window.location.href="/other/";</script>')
     }
   } catch (error) {
     console.log(username+":error");
     console.error('Error fetching user data:', error);
-    res.render('login', { errorMessage: 'ログインに失敗しました' });
+    return res.send('<script>alert("ログインに失敗しました"); window.location.href="/other/";</script>')
   }
 });
 
+// ボタンが押下されたときに'/'へリダイレクトするルート
+router.get('/return-to-top', (req, res) => {
+  res.redirect('/');
+})
 
 module.exports = router;

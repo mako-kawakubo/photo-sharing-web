@@ -1,12 +1,10 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-
-// テンプレートエンジンを設定
-app.set('view engine', 'ejs'); 
+const fs = require('fs');
 
 // Firebase Admin SDKの初期化
-// require('./firebase/firebase');
+// TODO: テストコード require('./firebase/firebase');
 require('./firebase/firebase_insta.js');
 
 // メインページ
@@ -17,21 +15,11 @@ app.use('/', indexRouter); // / へのルート
 const indexOtherRouter = require('./routes/index_other');
 app.use('/other/', indexOtherRouter);
 
+
 // subページ
 const subRouter = require('./routes/subRouter'); 
 // /sub ページに関するルーティングはsubRouter.jsを使うように設定
 app.use('/sub/', subRouter); 
-// アップロード処理
-app.post('/uploadImage', subRouter); 
-
-// CSSの読み込み
-const fs = require('fs');
-const substyleCss = fs.readFileSync('./css/substyle.css', 'UTF-8');
-// /styleCss へのルート
-app.get('/substyleCss', (req, res) => {
-    res.set('Content-Type', 'text/css'); // コンテンツタイプを設定
-    res.send(substyleCss); // CSSファイルを送信
-  });
 
 
 // 他のルートの登録...
