@@ -16,7 +16,7 @@ const upload = multer();
   // CSSの読み込み
   const substyleCss = fs.readFileSync('./css/substyle.css', 'UTF-8');
   // /styleCss へのルート
-  router.get('/substyleCss', (req, res) => {
+  router.get('/sub/substyleCss', (req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/css' }); // コンテンツタイプを設定
     res.write(substyleCss); // CSSファイルを送信
     res.end();
@@ -80,40 +80,52 @@ router.post('/uploadImage', upload.single('image'), async (req, res) => {
 
 // /sub ページのルート
 router.get('/', (req, res) => {
-    const ref = admin.database().ref('images');
+  const imageDir = './img'; // 画像が格納されているディレクトリのパス
 
-    ref.once('value')
-      .then((snapshot) => {
-        const images = snapshot.val();
-  
-        // 画像と名前のデータを取得
-        const imageData = Object.entries(images).map(([key, value]) => {
-          return {
-            url: value.url,
-            name: value.name
-          };
-        });    
-        
-        const message = req.session.uploadMessage; // セッションからメッセージを取得
-        delete req.session.uploadMessage; // セッションからメッセージを削除
-  
+  // 画像ファイルの一覧を取得
+  fs.readdir(imageDir, (err, files) => {
+    if (err) {
+      console.error('Failed to read image directory:', err);
+      res.status(500).send('Failed to read image directory');
+      return;
+    }
 
-            // instagramUtils.ejsを直接読み込んでレンダリングする
-            renderInstagramUtilsEjs(imageData,message)
-            .then((renderedHtml) => {
-              res.send(renderedHtml);
-            })
-            .catch((error) => {
-              console.error('Failed to render instagramUtils.ejs:', error);
-              res.status(500).send('Failed to render instagramUtils.ejs');
-            });
-        })
-        .catch((error) => {
-          console.error('Failed to retrieve data:', error);
-          res.status(500).send('Failed to retrieve data');
-        });
+    // 画像ファイルの一覧を元に imageData を作成
+    
+    const imageData = files.map((file, index) => {
+
+
+      const filePath = `./img/${file}`;
+      // ファイルを非同期的に読み込む
+      const data = fs.readFileSync(filePath);
+      // バイナリデータをbase64エンコード
+      const image = data.toString('base64');
+      
+      // 画像情報を返す
+      return {
+        url: `data:image/jpeg;base64,${image}`, // 画像ファイルのbase64エンコードされたデータをURLとして指定
+        name: `画像${index + 1}`, // 画像の名前（例：画像1, 画像2, ...）
+      };
+
+    });
+    
+
+    
+
+    const message = req.session.uploadMessage; // セッションからメッセージを取得
+    delete req.session.uploadMessage; // セッションからメッセージを削除
+
+    // instagramUtils.ejsを直接読み込んでレンダリングする
+    renderInstagramUtilsEjs(imageData, message)
+      .then((renderedHtml) => {
+        res.send(renderedHtml);
+      })
+      .catch((error) => {
+        console.error('Failed to render instagramUtils.ejs:', error);
+        res.status(500).send('Failed to render instagramUtils.ejs');
+      });
+  });
 });
-
 
 // instagramUtils.ejsを直接読み込んでレンダリングする関数
 function renderInstagramUtilsEjs(imageData, message) {

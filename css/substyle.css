@@ -1,43 +1,112 @@
-    
-  .uploadBox{
-    /*display: flex;*/
-    /*display: -webkit-flex;*/
-    width: auto;
-    flex-wrap: wrap;
-    justify-content: center; 
-    -webkit-flex-wrap: wrap;
-    margin: 0 10%;
+body {
+  /*background-color: beige;*/
+  background-color:rgba(28, 117, 15, 0.53);
+fill:#fff;
+background-size:1px 1px;
+background-repeat:repeat;
+background-image:url("data:image/svg+xml;charset=utf8,%3Csvg id='Layer_1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500' fill-opacity='1' style='enable-background:new 0 0 500 500'%3E%3Cstyle%3E .st0{fill:rgba(255,255,255,1)} %3C/style%3E%3Ccircle class='st0' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='336.6' r='12.7'/%3E%3Cg%3E%3Ccircle class='st0' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='.7' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='419.5' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='500.7' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='170.9' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='253.8' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='88' r='12.7'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+  
+  .uploadBox {
+  height: 300;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
   }
   
 
+  .message {
+    color: #ff5555;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .fileUpload {
+    position: relative;
+    overflow: hidden;
+    background-color: #f3f3f3;
+    color: #fff;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .fileUpload input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
 
-  .container{
-    display: flex;
-    /*display: -webkit-flex;*/
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    color: #868283;
+  }
+  
+  .uploadIcon::before {
+    content: "+";
+    font-size: 16px;
+    margin-right: 5px;
+  }
+
+  textarea#postText {
+    
+    width: 80%;
+     padding: 15px; 
+     border-radius: 5px;
+     border: 1px solid #ddd;
+     margin-bottom: 10px;
+     height: 60px;
+     
+   }
+  
+  button.btn.btn-primary {
+    padding: 10px 20px;
+    background-color: #3897f0;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button.btn.btn-primary:hover {
+    background-color: #357ae8;
+  }
+  
+  .container{   
     flex-wrap: wrap;
     justify-content: center; 
     -webkit-flex-wrap: wrap;
-    margin: 0 10%;
+    margin: 0% 10%;
+   
+    column-gap: 0;
+    column-count: 4;
+    line-height: 100%;
+  }
+
+  .container::after {
+    content: '';
+    width: calc((100% - 4 * 300px) / 3); /* 4列分の幅を除いた余りの幅を計算 */
+    display: inline-block;
   }
   
 
 .frame {
-  /*
-  column-gap: 0;
-  column-count: 4;
-  line-height: 0;
-  */
 	background: #fff;
 	border-radius: 24px;
 	box-shadow: 5px 5px 15px rgba(0, 0, 0, .3);
 	padding: 20px 14px 40px;
-	max-width: 350px;
-	width: 100%;
+	width: auto;
 	font-size: 14px;
     margin: 5px; /* タイル間の余白 */
-    height: 100%;
-    
-
+  height: auto;
+  break-inside: avoid;
 }
 
 .photo_head {
@@ -47,16 +116,18 @@
 .icon {
 	padding-right: 6px;
 }
-.photo {
+
+
+.post {
     width: 100%;
     max-width: 100%; /* 画像を.frame要素の幅に合わせて自動的に縮小 */
-	/*width: calc(100% + 28px);*/
     max-height: 100%;
 	position: relative;
-	/*left: -14px;*/
     overflow: hidden;
     object-fit: cover;
 }
+
+
 .link_area {
     display: flex;
 	justify-content: space-between;
@@ -105,12 +176,14 @@
   
 /* フォーム要素のスタイル */
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    border: 2px solid #d7bbbb;
+    padding: 40px 10px 0px 40px;
+    width: 70%;
+    max-width: 700px;
+    border-radius: 20px;
+    height: fit-content;
+
+    
   }
   
   /* フォーム要素内のラベルと入力フィールドのスタイル */
@@ -120,15 +193,22 @@ form {
   }
   
   input[type="file"],
-  input[type="text"],
   button {
     padding: 8px 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: auto;
+    margin-bottom: 30px;
   }
   
+input{
+  padding: 10px 15px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    color: #868283;
+}
+
   button {
     margin-top: 20px;
     background-color: #007bff;
