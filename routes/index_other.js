@@ -4,6 +4,7 @@ const express = require('express');
 const fs = require('fs');
 const session = require('express-session');
 const router = express.Router();
+const { addNewUser } = require('../service/addNewUser.js');
 
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -20,25 +21,44 @@ router.use(session({
   saveUninitialized: true
 }));
 
-const otherPage = fs.readFileSync('./other/other.html', 'UTF-8');
 
-// /other.html へのルート
+
+
+  const ejs = require('ejs');
+
 router.get('/', (req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.write(otherPage);
-  res.end();
+  // テンプレートのパス
+  const templatePath = './views/other.ejs';
+
+  // サーバーサイドでレンダリング
+  ejs.renderFile(templatePath, { serverMessage: null }, (err, renderedHtml) => {
+    if (err) {
+      console.error('Failed to render EJS template:', err);
+      res.status(500).send('Failed to render EJS template');
+    } else {
+      res.send(renderedHtml);
+    }
+    res.end();
+  });
 });
+
+
+
+
+
+// 静的なCSSファイルを提供するためのルート
+router.use('/other', express.static('css'));
 
 router.post('/login', async (req, res) => {
   const { username } = req.body;
 
   try {
-    // TODO: 後で書き換え→Firebase Realtime Databaseから"user"を一度すべて取得
+    // Firebase Realtime Databaseから"user"を一度すべて取得
     const userInfoSnapshot = await admin.database().ref('userinfo').once('value');
     const allUsersInfo = userInfoSnapshot.val();
     console.log(allUsersInfo);
 
-    // もしデータベースに"user"が存在しているかを確認
+    // データベースに"user"が存在しているかを確認
     if (allUsersInfo) {
       // "user"の中にusernameが存在するかを比較
       
@@ -50,20 +70,37 @@ router.post('/login', async (req, res) => {
         // ログイン成功時のリダイレクト先を指定
         res.redirect('/');
       } else {
-        console.log(username+":else1");
         // ユーザーがデータベースに存在しない場合
         return res.send('<script>alert("ログインに失敗しました"); window.location.href="/other/";</script>')
       }
     } else {
-      console.log(username+":else");
       // データベースに"user"が存在しない場合
       return res.send('<script>alert("ログインに失敗しました"); window.location.href="/other/";</script>')
     }
   } catch (error) {
-    console.log(username+":error");
     console.error('Error fetching user data:', error);
     return res.send('<script>alert("ログインに失敗しました"); window.location.href="/other/";</script>')
   }
+});
+
+router.post('/signup', async (req, res) => {
+  const { signupUsername } = req.body;
+  console.log(signupUsername+":req.body");
+
+      // Firebase Realtime Databaseから"user"を一度すべて取得
+      const userInfoSnapshot = await admin.database().ref('userinfo').once('value');
+      const allUsersInfo = userInfoSnapshot.val();
+      console.log(allUsersInfo);
+
+       if (Object.values(allUsersInfo).some((user) => user.user == signupUsername)) {
+        console.log(signupUsername+"は存在します");
+        const serverMessage = `${signupUsername} は既に存在します`;
+        res.render('other', { serverMessage });
+      } else{
+      addNewUser(signupUsername)
+      console.log(signupUsername+"を登録");
+      res.redirect('/');
+      }
 });
 
 // ボタンが押下されたときに'/'へリダイレクトするルート

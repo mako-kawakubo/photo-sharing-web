@@ -2,9 +2,13 @@
 <html>
 
 <head>
-  <link rel="stylesheet" type="text/css" href="sub/substyleCss">
+
+  <link rel="stylesheet" type="text/css" href="sub/substyle.css">
+  <link rel="stylesheet" type="text/css" href="sub/substyle-button.css">
   <meta charset="utf-8">
   <title>サブページ</title>
+  <script src="editFormScript.js"></script>
+  <script src="deletePostScript.js"></script>
 </head>
 
 <body>
@@ -29,21 +33,25 @@
             <br>
             <label>
               投稿文を入力
-              <textarea type="text" name="postText" id="postText" class="form-control" placeholder="キャプションを入力"></textarea>
+
+              <textarea type="text" name="postText" id="postText" class="form-control"
+                placeholder="キャプションを入力"></textarea>
+
             </label>
             <button type="submit" class="btn btn-primary">アップロード</button>
       </form>
     </div>
 
     <div class="container">
-
       <% imageData.forEach((image, index)=> { %>
-
         <div class="frame">
           <div class="photo_head flex">
-            <div class="icon"><img width="48" height="48" src="https://img.icons8.com/emoji/48/rabbit-face-emoji.png"
-                alt="rabbit-face-emoji" /></div>
-            <p>Designer</p>
+            <div class="icon">
+              <img width="48" height="48" src="https://img.icons8.com/emoji/48/rabbit-face-emoji.png"
+                alt="rabbit-face-emoji" />
+              <p>@<%= image.user %>
+              </p>
+            </div>
           </div>
 
           <div class="post">
@@ -52,6 +60,25 @@
               <%= image.name %>
             </p>
           </div>
+
+
+
+
+          <div class="edit-form" style="display: none;">
+            <form action="/sub/edit" method="post">
+              <input type="hidden" name="imageId" value="<%= image.id %>">
+              <p class="upload-message"></p>
+              <input type="text" name="editedText" id="editInput" class="editInput" value="<%= image.name %>">
+              <button type="submit" class="saveEditButton" id="saveEditButton">
+                <span class="bn54span">保存</span></button>
+              <button type="button" class="closeFormButton">
+                <span class="bn54span">
+                  閉じる
+                </span>
+              </button>
+            </form>
+          </div>
+
 
           <div class="link_area flex">
             <div class="left flex">
@@ -70,13 +97,28 @@
                   alt="external-bookmark-ecommerce-interface-anggara-outline-color-anggara-putra" /></span>
             </div>
           </div>
-        </div>
-        <% if ((index + 1) % 4===0) { %>
-          <!-- 4列ごとに余白を挿入 -->
-          <span class="spacer"></span>
-          <% } %>
 
-            <% }) %>
+
+          <div class="button-container">
+            <button class="bn54 edit-button" data-index="<%= index %>">
+              <span class="bn54span">
+
+                <div class="edit icon">
+                </div>
+                編集
+              </span>
+            </button>
+            <button class="bn54 delete-button" data-index="<%= index %>" data-post-id="<%= image.id %>">
+              <span class="bn54span">
+                <div class="trash icon"></div>
+                削除
+              </span>
+            </button>
+          </div>
+
+
+        </div>
+        <% }) %>
 
     </div>
 

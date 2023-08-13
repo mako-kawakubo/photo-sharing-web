@@ -1,3 +1,10 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400&display=swap');
+
+
+
+
 body {
   /*background-color: beige;*/
   background-color:rgba(28, 117, 15, 0.53);
@@ -8,14 +15,35 @@ background-image:url("data:image/svg+xml;charset=utf8,%3Csvg id='Layer_1' xmlns=
 }
 
   
-  .uploadBox {
-  height: 300;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+.uploadBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: fit-content; 
+  margin-bottom: 100px;
+}
 
-  }
-  
+.uploadBox form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.uploadBox form label {
+    margin-bottom: 10px; /* ラベル間の余白を調整 */
+}
+
+.uploadBox form textarea {
+    height: 100px; /* テキストエリアの初期の高さを設定 */
+}
+
+.uploadBox form button {
+    align-self: auto; /* ボタンを左寄せに配置 */
+}
+
+
 
   .message {
     color: #ff5555;
@@ -54,6 +82,7 @@ background-image:url("data:image/svg+xml;charset=utf8,%3Csvg id='Layer_1' xmlns=
     font-size: 16px;
     margin-right: 5px;
   }
+  /*
 
   textarea#postText {
     
@@ -65,57 +94,73 @@ background-image:url("data:image/svg+xml;charset=utf8,%3Csvg id='Layer_1' xmlns=
      height: 60px;
      
    }
-  
-  button.btn.btn-primary {
-    padding: 10px 20px;
-    background-color: #3897f0;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+   */
+
+   .form-control {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+    border: solid 1px #ccc;
+    border-radius: 6px;
+    outline: 0;
+    transition: 0.3s;
+    -webkit-appearance: none;
   }
   
-  button.btn.btn-primary:hover {
-    background-color: #357ae8;
+  .form-control:focus {
+    border: 1px solid #00b5ad;
   }
+  
+
   
   .container{   
+    display: flex;
     flex-wrap: wrap;
-    justify-content: center; 
-    -webkit-flex-wrap: wrap;
+    justify-content: center;
     margin: 0% 10%;
-   
-    column-gap: 0;
-    column-count: 4;
-    line-height: 100%;
   }
 
+  /*
   .container::after {
     content: '';
-    width: calc((100% - 4 * 300px) / 3); /* 4列分の幅を除いた余りの幅を計算 */
+    width: calc((100% - 4 * 300px) / 3); 
     display: inline-block;
   }
+  */
   
 
 .frame {
 	background: #fff;
 	border-radius: 24px;
 	box-shadow: 5px 5px 15px rgba(0, 0, 0, .3);
-	padding: 20px 14px 40px;
-	width: auto;
+	padding: 20px 14px 10px;
+	width: 20%;
 	font-size: 14px;
     margin: 5px; /* タイル間の余白 */
   height: auto;
   break-inside: avoid;
+  margin-block-end: auto;
 }
 
 .photo_head {
-	align-items: center;
-	padding-bottom: 14px;
+  align-items: center;
+  padding-bottom: 14px;
 }
+
 .icon {
-	padding-right: 6px;
+  display: flex; /* flexを使ってアイコンとテキストを横並びにする */
+  align-items: center; /* アイコンとテキストを垂直方向に中央揃え */
+  padding-right: 6px;
 }
+
+.icon img {
+  margin-right: 6px; /* アイコンとテキストの間にスペースを設ける */
+}
+
 
 
 .post {
@@ -132,6 +177,7 @@ background-image:url("data:image/svg+xml;charset=utf8,%3Csvg id='Layer_1' xmlns=
     display: flex;
 	justify-content: space-between;
 	padding-top: 10px;
+  padding-bottom: 50px;
 }
 .link_area .left {
     display: flex;
@@ -173,19 +219,7 @@ background-image:url("data:image/svg+xml;charset=utf8,%3Csvg id='Layer_1' xmlns=
     width: 100%; 
     object-fit: cover; 
   }
-  
-/* フォーム要素のスタイル */
-form {
-    border: 2px solid #d7bbbb;
-    padding: 40px 10px 0px 40px;
-    width: 70%;
-    max-width: 700px;
-    border-radius: 20px;
-    height: fit-content;
 
-    
-  }
-  
   /* フォーム要素内のラベルと入力フィールドのスタイル */
   label {
     margin: 10px 0;
@@ -209,10 +243,21 @@ input{
     color: #868283;
 }
 
-  button {
-    margin-top: 20px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-  }
-  
+
+.edit-form {
+  /* 他のスタイルがない場合、以下の2行だけで要素の最大化が可能です */
+  width: 100%; /* インライン要素の幅を100%に */
+  display: flex; /* フレックスコンテナに変更 */
+
+  /* 他のスタイルがある場合、以下のスタイルを追加して適切なレイアウトを保持してください */
+  flex-direction: column; /* 子要素を縦に配置 */
+  align-items: center; /* 子要素を中央に配置 */
+  justify-content: center; /* 子要素を縦方向に中央に配置 */
+}
+
+.editInput {
+  width: 100%; /* 最大化のために幅を100%に */
+  height: 100%; /* 最大化のために高さを100%に */
+  box-sizing: border-box; /* ボーダーボックスモデルを使用して内部の幅と高さを制御 */
+  resize: none; /* テキストエリアのリサイズを無効化 */
+}

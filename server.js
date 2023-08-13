@@ -3,8 +3,9 @@ const app = express();
 const port = 3000;
 const fs = require('fs');
 
+app.set('view engine', 'ejs'); // EJSをビューエンジンとして設定
+
 // Firebase Admin SDKの初期化
-// TODO: テストコード require('./firebase/firebase');
 require('./firebase/firebase_insta.js');
 
 // メインページ
@@ -15,12 +16,11 @@ app.use('/', indexRouter); // / へのルート
 const indexOtherRouter = require('./routes/index_other');
 app.use('/other/', indexOtherRouter);
 
-
 // subページ
 const subRouter = require('./routes/subRouter'); 
 // /sub ページに関するルーティングはsubRouter.jsを使うように設定
 app.use('/sub/', subRouter); 
-
+app.use('/sub/edit', subRouter);
 
 // 他のルートの登録...
 

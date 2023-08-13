@@ -1,0 +1,183 @@
+/* デフォルト設定
+button {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  button.btn.btn-primary {
+    padding: 10px 20px;
+    background-color: #3897f0;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button.btn.btn-primary:hover {
+    background-color: #357ae8;
+  }
+  */
+  
+  
+  .bn54,
+  .closeFormButton,
+  .saveEditButton,
+  .btn-primary {
+    position: static;
+    outline: none;
+    text-decoration: none;
+    border-radius: 50px;
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    height: 35px;
+    width: 100px;
+    opacity: 1;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+
+    left: auto;
+    align-content: flex-end;
+    margin-bottom: 0;
+    margin-top: auto;
+    padding: 0;
+  }
+
+  .btn-primary {
+    width: 150px; /* 幅を150pxに変更 */
+  }
+  
+  .bn54 .bn54span,
+  .closeFormButton > .bn54span, 
+  .saveEditButton > .bn54span,
+  .btn-primary{
+    font-family: 'Zen Maru Gothic', sans-serif;
+    color: #000000;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.7px;
+  }
+  
+  .bn54:hover {
+    animation: bn54rotate 0.7s ease-in-out both;
+  }
+  
+  .bn54:hover .bn54span {
+    animation: bn54storm 0.7s ease-in-out both;
+    animation-delay: 0.06s;
+  }
+  
+  @keyframes bn54rotate {
+    0% {
+      transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+    25% {
+      transform: rotate(3deg) translate3d(0, 0, 0);
+    }
+    50% {
+      transform: rotate(-3deg) translate3d(0, 0, 0);
+    }
+    75% {
+      transform: rotate(1deg) translate3d(0, 0, 0);
+    }
+    100% {
+      transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+  }
+  
+  @keyframes bn54storm {
+    0% {
+      transform: translate3d(0, 0, 0) translateZ(0);
+    }
+    25% {
+      transform: translate3d(4px, 0, 0) translateZ(0);
+    }
+    50% {
+      transform: translate3d(-3px, 0, 0) translateZ(0);
+    }
+    75% {
+      transform: translate3d(2px, 0, 0) translateZ(0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0) translateZ(0);
+    }
+  }
+
+  .button-container {
+    display: flex; /* 要素を横並びに配置するための flex レイアウト */
+    justify-content: flex-end;
+}
+
+.button-container1 {
+  display: flex; /* 要素を横並びに配置するための flex レイアウト */
+  align-items: center;
+  
+}
+
+.edit.icon {
+  color: #000;
+  position: absolute;
+  margin-left: 4px;
+  margin-top: 7px;
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  border: solid 1px currentColor;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+          vertical-align: middle; /* 上下中央寄せ */
+}
+
+.edit.icon:before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: -1px;
+  width: 0px;
+  height: 0px;
+  border-left: solid 5px transparent;
+  border-right: solid 5px currentColor;
+  border-top: solid 2px transparent;
+  border-bottom: solid 2px transparent;
+}
+
+.trash.icon {
+  color: #000;
+  position: absolute;
+  margin-left: 5px;
+  margin-top: 7px;
+  width: 9px;
+  height: 10px;
+  border-left: solid 1px currentColor;
+  border-right: solid 1px currentColor;
+  border-bottom: solid 1px currentColor;
+  border-radius: 0 0 2px 2px;
+  vertical-align: middle; /* 上下中央寄せ */
+}
+
+.trash.icon:before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: -2px;
+  width: 17px;
+  height: 1px;
+  background-color: currentColor;
+}
+
+.trash.icon:after {
+  content: '';
+  position: absolute;
+  left: 0px;
+  top: -5px;
+  width: 7px;
+  height: 2px;
+  border-left: solid 1px currentColor;
+  border-right: solid 1px currentColor;
+  border-top: solid 1px currentColor;
+  border-radius: 4px 4px 0 0;
+}
