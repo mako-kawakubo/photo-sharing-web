@@ -28,8 +28,11 @@
         <div class="frame">
           <div class="photo_head flex">
             <div class="icon">
-              <img width="48" height="48" src="https://img.icons8.com/emoji/48/rabbit-face-emoji.png"
-                alt="rabbit-face-emoji" />
+              <% if(image.topimg === null) { %> 
+              <img width="48" height="48" src="https://img.icons8.com/emoji/48/rabbit-face-emoji.png" alt="rabbit-face-emoji" />                                          
+             <% }else{ %>
+              <img width="48" height="48" src="<%= image.topimg  %>" alt="rabbit-face-emoji" />                                          
+              <% } %>
               <p>@<%= image.user %>
               </p>
             </div>

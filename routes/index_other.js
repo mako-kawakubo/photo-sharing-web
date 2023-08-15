@@ -63,7 +63,6 @@ router.post('/login', async (req, res) => {
       // "user"の中にusernameが存在するかを比較
       
       if (Object.values(allUsersInfo).some((user) => user.user === username)) {
-        console.log(username);
         // ログインに成功した場合はセッションにログイン情報を保存
         req.session.isLoggedIn = true;
         req.session.username = username;

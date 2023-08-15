@@ -16,11 +16,13 @@ async function fetchDataAndRenderPage(req, res, templatePath) {
 
 
         // 'images'ノードからデータを取得して整形する
+
         const imagesRef = admin.database().ref('images');
         const imagesSnapshot = await imagesRef.once('value');
         const imagesData = imagesSnapshot.val();
         const message = req.session.uploadMessage;
         delete req.session.uploadMessage;
+ 
 
         // ログインしている状態かつサブページ表示の場合は、ログインユーザーのみに表示を絞る
         const loggedInUserName = req.session.username;

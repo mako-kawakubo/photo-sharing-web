@@ -2,23 +2,20 @@
 
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
-const ejs = require('ejs');
 const admin = require('firebase-admin');
 const { bucketURL } = require('../firebase/firebase_insta'); // firebase.jsからbucketURLをインポート
 const fetchDataAndRenderPageModule = require('../service/fetchDataAndRenderPage');
 const fetchDataAndRenderPage = fetchDataAndRenderPageModule; // オブジェクトのメソッドとして使用するための代入
 
-
-
 const multer = require('multer');
 const upload = multer();
+const bodyParser = require('body-parser');
 
 
 // 静的なCSSファイルを提供するためのルート
 router.use('/sub', express.static('css'));
 // publicへのアクセス
-router.use(express.static('public')); 
+router.use(express.static('public'));
 
 
 
@@ -76,48 +73,23 @@ router.post('/sub/uploadImage', upload.single('image'), async (req, res) => {
 });
 
 
-// /sub ページのルート
-/*
-router.get('/', (req, res) => {
-  
-    const ref = admin.database().ref('images');
-    
-    ref.once('value')
-      .then((snapshot) => {
-        const imagesData = snapshot.val();
-
-        const loggedInUserName = req.session.username;
-        let filteredImagesData = imagesData;
-  
-        if (loggedInUserName) {
-          // ログインしている場合、ログインユーザー名に一致する投稿のみをフィルタリング
-          filteredImagesData = Object.entries(imagesData).filter(([key, value]) => value.user === loggedInUserName);
-          console.log(filteredImagesData);
-        } else {
-          // ログインしていない場合は他のページにリダイレクト
-          res.redirect('/other/');
-          return;
-        }
-        const message = req.session.uploadMessage; 
-        delete req.session.uploadMessage; 
-
-        renderPageWithImages(req, res, filteredImagesData, message, './views/instagramUtils.ejs');
-  });
-  
-});
-*/
 
 router.get('/', async (req, res) => {
   try {
 
     // ログインしていなければログインページへ
     const loggedInUserName = req.session.username;
-    if (!loggedInUserName) {      
+    if (!loggedInUserName) {
       res.redirect('/other/');
       return;
     }
 
-    await fetchDataAndRenderPage(req, res,  './views/instagramUtils.ejs');
+    const displayImagesWithTopImgModule = require('../service/displayImagesWithTopImg');
+    const displayImagesWithTopImg = displayImagesWithTopImgModule;
+
+
+    // TODO:fetchDataAndRenderPageは後で消す await fetchDataAndRenderPage(req, res,  './views/instagramUtils.ejs');
+    await displayImagesWithTopImg(req, res, './views/instagramUtils.ejs');
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send('An error occurred');
@@ -126,31 +98,31 @@ router.get('/', async (req, res) => {
 
 
 
-  // 投稿の編集処理
-  router.use(express.json());
-  router.post('/sub/edit', (req, res) => {
-  
+// 投稿の編集処理
+router.use(express.json());
+router.post('/sub/edit', (req, res) => {
+
   const imageId = req.body.imageId;
-    const editedText = req.body.editedText;
+  const editedText = req.body.editedText;
 
-    // データベース参照
-    const db = admin.database();
-    const imagesRef = db.ref('images');
-  
-    // 特定の投稿を更新
-    const imageRef = imagesRef.child(imageId);
-    imageRef.update({ name: editedText })
-      .then(() => {
-        console.log('Data updated successfully');
-        res.json({ message: 'データが正常に更新されました' }); 
-      })
-      .catch((error) => {
-        console.error('Error updating data:', error);
-        res.status(500).json({ error: 'データの更新に失敗しました' });
-      });
-  });
+  // データベース参照
+  const db = admin.database();
+  const imagesRef = db.ref('images');
 
-  // 投稿の削除処理
+  // 特定の投稿を更新
+  const imageRef = imagesRef.child(imageId);
+  imageRef.update({ name: editedText })
+    .then(() => {
+      console.log('Data updated successfully');
+      res.json({ message: 'データが正常に更新されました' });
+    })
+    .catch((error) => {
+      console.error('Error updating data:', error);
+      res.status(500).json({ error: 'データの更新に失敗しました' });
+    });
+});
+
+// 投稿の削除処理
 router.post('/sub/delete', (req, res) => {
   const postId = req.body.postId; // クライアントから送られてきた投稿のID
 
@@ -175,6 +147,58 @@ router.post('/sub/delete', (req, res) => {
     });
 });
 
+
+
+// ユーザー名変更
+router.use(express.json());
+router.post('/sub/renameModal',  async(req, res) => {
+
+/*データベース更新処理 */
+  try {
+    // const editedText = req.body.renameText;
+    const username = req.body.username;
+
+    // データベース参照
+    const db = admin.database();
+    const userInfoRef = db.ref('userinfo');
+    const snapshot = await userInfoRef.once('value');
+    const userInfoData = snapshot.val();
+
+
+    const userInfos = Object.entries(userInfoData).map(([key, value]) => ({
+      key: key,
+      topimg: value.topimg,
+      user: value.user,
+    }));
+
+    // 同じユーザー名が存在するかチェック
+    const existingUser = userInfos.find(info => info.user === username);
+    if (existingUser) {
+      res.json({ message: '同じユーザー名が既に存在します' });
+      return;
+    }
+
+    // ログイン中のユーザー名
+    const loggedInUsername = req.session.username;
+
+    // ログイン中のユーザー名に一致するキーを取得
+    let loggedInUserKey = null;
+    for (const [key, value] of Object.entries(userInfoData)) {
+      if (value.user === loggedInUsername) {
+        loggedInUserKey = key;
+        await userInfoRef.child(loggedInUserKey).update({ user: username });
+        res.json({ message: 'データが正常に更新されました' });
+        return;            
+      }
+      res.json({ message: '該当するユーザーが見つかりませんでした' });
+      break;
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('An error occurred');
+  }
   
+});
+
 
 module.exports = router;

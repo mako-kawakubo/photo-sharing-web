@@ -5,10 +5,14 @@
 
   <link rel="stylesheet" type="text/css" href="sub/substyle.css">
   <link rel="stylesheet" type="text/css" href="sub/substyle-button.css">
+  <link rel="stylesheet" type="text/css" href="sub/modal.css">
   <meta charset="utf-8">
   <title>サブページ</title>
   <script src="editFormScript.js"></script>
   <script src="deletePostScript.js"></script>
+  <!--<script src="RenameModal.js"></script>-->
+  <script src="modal.js"></script>
+
 </head>
 
 <body>
@@ -16,6 +20,58 @@
 
 
     <p><a href="/">TOPページへ</a></p>
+
+    <!--
+    <div class="container">
+      <button class="button" data-modal-open="modal-1">
+        ユーザー設定
+      </button>
+      
+      <div class="modal" id="modal-1">
+        <div class="modal-overlay" data-modal-close>
+          <div class="modal-container">
+            <h2 class="modal-title">ユーザー設定のモーダルウィンドウ</h2>
+            <div class="modal-content">
+              <p>ユーザー名とプロフィール画像の変更が可能です</p>
+              <div class="edit-form">
+                <form action="sub/renameModal" method="post">
+                  <p class="upload-message"></p>
+                  <input type="text" name="renameText" >
+                  <button type="submit">
+                    保存</button>
+                </form>
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <button class="button" data-modal-close="modal-1">
+                閉じる
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+-->
+
+<button id="openModalButton">ユーザー設定・変更</button>
+<%  console.log(username) %>
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="closeModalButton">&times;</span>
+      <h2>ユーザー設定・変更</h2>
+      <form id="inputForm">
+        <label for="username">ユーザー名:</label>
+        <input type="text" id="username" name="username" placeholder="変更前：<%= username %>" required><br><br>
+        <label for="email">Eメール:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <button type="button" id="saveButton">保存</button>
+      </form>
+      <div id="messageArea" class="message-area"></div>
+    </div>
+  </div>
 
 
     <div class="uploadBox">
@@ -47,8 +103,12 @@
         <div class="frame">
           <div class="photo_head flex">
             <div class="icon">
-              <img width="48" height="48" src="https://img.icons8.com/emoji/48/rabbit-face-emoji.png"
-                alt="rabbit-face-emoji" />
+              <% if(image.topimg === null) { %>  
+                <img width="48" height="48" src="https://img.icons8.com/emoji/48/rabbit-face-emoji.png" alt="rabbit-face-emoji" />                                          
+                <% } else { %>
+                  <img width="48" height="48" src="<%= image.topimg  %>" alt="rabbit-face-emoji" />                                          
+              <% } %>
+                
               <p>@<%= image.user %>
               </p>
             </div>
