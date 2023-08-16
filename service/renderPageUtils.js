@@ -1,20 +1,3 @@
-/*
-function renderInstagramUtilsEjs(options, templatePath) {
-   return new Promise((resolve, reject) => {
-    const ejs = require('ejs');
-
-    ejs.renderFile(templatePath, options, (err, renderedHtml) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(renderedHtml);
-      }
-    });
-   });
-   
-}
-*/
-
 function renderInstagramUtilsEjs(options, templatePath, callback) {
   const ejs = require('ejs');
 

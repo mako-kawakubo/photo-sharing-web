@@ -8,7 +8,7 @@ const fetchDataAndRenderPageModule = require('../service/fetchDataAndRenderPage'
 const fetchDataAndRenderPage = fetchDataAndRenderPageModule; // オブジェクトのメソッドとして使用するための代入
 
 const { uploadImage } = require('../service/NewUploadImageUtils');
-
+const { UpdateUsername }  = require('../service/UpdateUsername');
 
 const multer = require('multer');
 const upload = multer();
@@ -43,7 +43,7 @@ await uploadImage(file.buffer, req.body.postText, req.session.username);
 });
 
 
-
+// 初期表示
 router.get('/', async (req, res) => {
   try {
 
@@ -92,6 +92,8 @@ router.post('/sub/edit', (req, res) => {
     });
 });
 
+
+
 // 投稿の削除処理
 router.post('/sub/delete', (req, res) => {
   const postId = req.body.postId; // クライアントから送られてきた投稿のID
@@ -125,7 +127,10 @@ router.post('/sub/renameModal',  async(req, res) => {
 
 /*データベース更新処理 */
   try {
+    await UpdateUsername(req,res,req.body.username);
     // const editedText = req.body.renameText;
+
+    /*
     const username = req.body.username;
 
     // データベース参照
@@ -163,6 +168,7 @@ router.post('/sub/renameModal',  async(req, res) => {
       res.json({ message: '該当するユーザーが見つかりませんでした' });
       break;
     }
+    */
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send('An error occurred');

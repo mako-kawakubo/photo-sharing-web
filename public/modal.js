@@ -19,12 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
   saveButton.addEventListener('click', () => {
     const username = inputForm.username.value;
     // const email = inputForm.email.value;
-   // const profileImage = profileImageInput.files[0];
+    // const profileImage = profileImageInput.files[0];
     const formData = new FormData(); // FormDataを作成
 
     if (username) formData.append('username', username);
-   // if (email) formData.append('email', email);
-   // if (profileImage) formData.append('profileImage', profileImage);
+    // if (email) formData.append('email', email);
+    // if (profileImage) formData.append('profileImage', profileImage);
 
 
     // ユーザー名変更の処理
@@ -42,29 +42,37 @@ document.addEventListener('DOMContentLoaded', () => {
           messageArea.textContent = data.message; // メッセージを表示エリアにセット
           // テキストボックスの内容をクリア
           inputForm.username.value = '';
+
+          // 「再度ログインしてください」の文字列でログインページへのリンク追加
+          if (data.message === 'データが正常に更新されました') {
+            const loginLink = document.createElement('a');
+            loginLink.href = '/other/'; // ログインページのURLを設定
+            loginLink.textContent = '再度ログインしてください';
+            messageArea.appendChild(loginLink); // リンクを表示エリアに追加
+          }
         })
         .catch((error) => {
           console.error('Error:', error);
         });
     }
 
-      // プロフィール画像変更の処理
-      /*
-  if (profileImage) {
-    fetch('sub/updateProfileImage', {
-      method: 'POST',
-      body: formData,
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      // プロフィール画像変更処理の結果を表示
-      console.log(data.message);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  }
-  */
+    // プロフィール画像変更の処理
+    /*
+if (profileImage) {
+  fetch('sub/updateProfileImage', {
+    method: 'POST',
+    body: formData,
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    // プロフィール画像変更処理の結果を表示
+    console.log(data.message);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
+*/
 
   });
 });

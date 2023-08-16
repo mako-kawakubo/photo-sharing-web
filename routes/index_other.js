@@ -16,7 +16,7 @@ const admin = require('firebase-admin');
 
 // セッション設定
 router.use(session({
-  secret: 'your-secret-key', // セッションの署名に使用する秘密キーを指定
+  secret: 'your-secret-key', 
   resave: false,
   saveUninitialized: true
 }));
