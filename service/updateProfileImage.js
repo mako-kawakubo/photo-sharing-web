@@ -29,16 +29,16 @@ const UpdateProfileImage = async (filebuffer,req,res) => {
 const snapshot = await userInfoRef.once('value');
 const userInfoData = snapshot.val();
 
-// ログイン中のユーザー名
-const loggedInUsername = req.session.username;
+// ログイン中のユーザー名とそのキー情報
+const loggedInUsername = req.session.username; // プロフィール画像と共に名前も変更した場合は変更前の情報
+const loggedInUserKey = req.session.loggedInUserKey; // キー情報は変更なし
 
 // ログイン中のユーザー名に一致するキーを取得（userInfoData テーブルの更新）
-let loggedInUserKey = null;
+//let loggedInUserKey = null;
 let userFound = false;
 
-for (const [key, value] of Object.entries(userInfoData)) {
-  if (value.user === loggedInUsername) {
-    loggedInUserKey = key;
+for (const [key,_] of Object.entries(userInfoData)) {
+  if (key === loggedInUserKey) {
     await userInfoRef.child(loggedInUserKey).update({ topimg: downloadUrl });
     userFound = true;
     break;
@@ -46,7 +46,7 @@ for (const [key, value] of Object.entries(userInfoData)) {
 }
 
 if (!userFound) {
-  res.json({ message: '該当するユーザーが見つかりませんでした' });
+  res.json({ message: 'プロフィール画像の更新に失敗しました' });
   return;
 }
 

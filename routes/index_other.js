@@ -13,7 +13,7 @@ const admin = require('firebase-admin');
 
 
 
-
+// TODO: 別ファイルに移し、ignore の設定ディレクトリに配置,secretkey生成処理
 // セッション設定
 router.use(session({
   secret: 'your-secret-key',

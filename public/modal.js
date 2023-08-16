@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 保存ボタンが押されたときの処理
-  // TODO: ユーザー変更とプロフィール写真変更のボタンを分ける
+  // TODO: sub/updateProfileImageからのレスポンスとsub/renameModalからのレスポンスを分ける
   saveButton.addEventListener('click', () => {
 
     // ユーザー名が入力されていれば、変更後のユーザー名をサーバー側に送る
