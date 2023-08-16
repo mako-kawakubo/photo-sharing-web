@@ -3,13 +3,16 @@
 const express = require('express');
 const router = express.Router();
 const admin = require('firebase-admin');
-const { bucketURL } = require('../firebase/firebase_insta'); // firebase.jsからbucketURLをインポート
+// TODO; 下二つ後で消す
 const fetchDataAndRenderPageModule = require('../service/fetchDataAndRenderPage');
 const fetchDataAndRenderPage = fetchDataAndRenderPageModule; // オブジェクトのメソッドとして使用するための代入
 
+const { uploadImage } = require('../service/NewUploadImageUtils');
+
+
 const multer = require('multer');
 const upload = multer();
-const bodyParser = require('body-parser');
+
 
 
 // 静的なCSSファイルを提供するためのルート
@@ -28,40 +31,7 @@ router.post('/sub/uploadImage', upload.single('image'), async (req, res) => {
       res.redirect('/sub/'); // エラーメッセージをセッションに保存してサブページにリダイレクト
       return;
     }
-
-    const bucket = admin.storage().bucket(bucketURL);
-    const randomId = Math.random().toString(32).substring(2);
-    const fileRef = bucket.file(`posts/${randomId}.jpg`);
-
-    const uploadTask = fileRef.save(file.buffer, {
-      metadata: {
-        contentType: 'image/jpeg',
-      },
-    });
-
-    await uploadTask;
-
-    const urls = await fileRef.getSignedUrl({
-      action: 'read',
-      expires: '03-01-2500',
-    });
-
-    const downloadUrl = urls[0];
-
-    const imageInfo = {
-      name: req.body.postText,
-      url: downloadUrl,
-      user: req.session.username
-    };
-
-    const imagesRef = admin.database().ref('/images');
-    const snapshot = await imagesRef.once('value');
-
-    if (!snapshot.exists()) {
-      await imagesRef.set(true);
-    }
-
-    await imagesRef.push(imageInfo);
+await uploadImage(file.buffer, req.body.postText, req.session.username);
 
     req.session.uploadMessage = '投稿が完了しました'; // 成功メッセージをセッションに保存
     res.redirect('/sub/'); // サブページにリダイレクト

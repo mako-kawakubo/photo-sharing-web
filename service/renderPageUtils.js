@@ -37,14 +37,12 @@ async function renderPageWithImages(req, res, imageData, message, templatePath )
 
 
   try {
-  //  const renderedHtml = await renderInstagramUtilsEjs(options, templatePath);
-  //  res.send(renderedHtml);
+
 
   renderInstagramUtilsEjs(options, templatePath, (err, renderedHtml) => {
     if (err) {
       console.error('Error:', err);
     } else {
-      // renderedHtmlを使って何か処理を行う
       res.send(renderedHtml);
     }
   });
