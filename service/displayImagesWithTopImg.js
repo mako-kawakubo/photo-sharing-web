@@ -1,5 +1,3 @@
-//TODO: 後で消す このページにservice\fetchDataAndRenderPage.jsの内容を追記していく
-
 const { renderPageWithImages } = require('../service/renderPageUtils');
 // Firebase Admin SDKの初期化
 const admin = require('firebase-admin');

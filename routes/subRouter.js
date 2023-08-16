@@ -129,47 +129,6 @@ router.post('/sub/renameModal',  async(req, res) => {
 /*データベース更新処理 */
   try {
     await UpdateUsername(req,res,req.body.username);
-    // const editedText = req.body.renameText;
-
-    /*
-    const username = req.body.username;
-
-    // データベース参照
-    const db = admin.database();
-    const userInfoRef = db.ref('userinfo');
-    const snapshot = await userInfoRef.once('value');
-    const userInfoData = snapshot.val();
-
-
-    const userInfos = Object.entries(userInfoData).map(([key, value]) => ({
-      key: key,
-      topimg: value.topimg,
-      user: value.user,
-    }));
-
-    // 同じユーザー名が存在するかチェック
-    const existingUser = userInfos.find(info => info.user === username);
-    if (existingUser) {
-      res.json({ message: '同じユーザー名が既に存在します' });
-      return;
-    }
-
-    // ログイン中のユーザー名
-    const loggedInUsername = req.session.username;
-
-    // ログイン中のユーザー名に一致するキーを取得
-    let loggedInUserKey = null;
-    for (const [key, value] of Object.entries(userInfoData)) {
-      if (value.user === loggedInUsername) {
-        loggedInUserKey = key;
-        await userInfoRef.child(loggedInUserKey).update({ user: username });
-        res.json({ message: 'データが正常に更新されました' });
-        return;            
-      }
-      res.json({ message: '該当するユーザーが見つかりませんでした' });
-      break;
-    }
-    */
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send('An error occurred');

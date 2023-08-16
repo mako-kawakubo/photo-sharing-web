@@ -16,7 +16,7 @@ const admin = require('firebase-admin');
 
 // セッション設定
 router.use(session({
-  secret: 'your-secret-key', 
+  secret: 'your-secret-key',
   resave: false,
   saveUninitialized: true
 }));
@@ -24,7 +24,7 @@ router.use(session({
 
 
 
-  const ejs = require('ejs');
+const ejs = require('ejs');
 
 router.get('/', (req, res) => {
   // テンプレートのパス
@@ -58,24 +58,30 @@ router.post('/login', async (req, res) => {
     const allUsersInfo = userInfoSnapshot.val();
     console.log(allUsersInfo);
 
-    // データベースに"user"が存在しているかを確認
-    if (allUsersInfo) {
-      // "user"の中にusernameが存在するかを比較
-      
-      if (Object.values(allUsersInfo).some((user) => user.user === username)) {
+    let userFound = false;
+
+    for (const [key, value] of Object.entries(allUsersInfo)) {
+      if (value.user === username) {
         // ログインに成功した場合はセッションにログイン情報を保存
         req.session.isLoggedIn = true;
         req.session.username = username;
-        // ログイン成功時のリダイレクト先を指定
-        res.redirect('/');
-      } else {
-        // ユーザーがデータベースに存在しない場合
-        return res.send('<script>alert("ログインに失敗しました"); window.location.href="/other/";</script>')
+        // ログイン中ユーザーのキー情報もセッションに保存 
+        const loggedInUserKey = key;
+        req.session.loggedInUserKey = loggedInUserKey;
+        // 該当ユーザが見つかった場合
+        userFound = true;
+        break;
       }
-    } else {
-      // データベースに"user"が存在しない場合
-      return res.send('<script>alert("ログインに失敗しました"); window.location.href="/other/";</script>')
     }
+
+    if (userFound) {
+      // ログイン成功時のリダイレクト先を指定
+      res.redirect('/');
+    } else {
+      // ユーザーがデータベースに存在しない場合
+      return res.send('<script>alert("ユーザーが存在しません"); window.location.href="/other/";</script>')
+    }
+
   } catch (error) {
     console.error('Error fetching user data:', error);
     return res.send('<script>alert("ログインに失敗しました"); window.location.href="/other/";</script>')
@@ -84,22 +90,22 @@ router.post('/login', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   const { signupUsername } = req.body;
-  console.log(signupUsername+":req.body");
+  console.log(signupUsername + ":req.body");
 
-      // Firebase Realtime Databaseから"user"を一度すべて取得
-      const userInfoSnapshot = await admin.database().ref('userinfo').once('value');
-      const allUsersInfo = userInfoSnapshot.val();
-      console.log(allUsersInfo);
+  // Firebase Realtime Databaseから"user"を一度すべて取得
+  const userInfoSnapshot = await admin.database().ref('userinfo').once('value');
+  const allUsersInfo = userInfoSnapshot.val();
+  console.log(allUsersInfo);
 
-       if (Object.values(allUsersInfo).some((user) => user.user == signupUsername)) {
-        console.log(signupUsername+"は存在します");
-        const serverMessage = `${signupUsername} は既に存在します`;
-        res.render('other', { serverMessage });
-      } else{
-      addNewUser(signupUsername)
-      console.log(signupUsername+"を登録");
-      res.redirect('/');
-      }
+  if (Object.values(allUsersInfo).some((user) => user.user == signupUsername)) {
+    console.log(signupUsername + "は存在します");
+    const serverMessage = `${signupUsername} は既に存在します`;
+    res.render('other', { serverMessage });
+  } else {
+    addNewUser(signupUsername)
+    console.log(signupUsername + "を登録");
+    res.redirect('/');
+  }
 });
 
 // ボタンが押下されたときに'/'へリダイレクトするルート
