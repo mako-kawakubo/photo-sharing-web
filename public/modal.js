@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const saveButton = document.getElementById('saveButton');
   const inputForm = document.getElementById('inputForm');
 
+  const formData = new FormData(); // FormDataを作成
+
   // モーダルを開く
   openModalButton.addEventListener('click', () => {
     modal.style.display = 'block';
@@ -16,16 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 保存ボタンが押されたときの処理
+  // TODO: ユーザー変更とプロフィール写真変更のボタンを分ける
   saveButton.addEventListener('click', () => {
+
+    // ユーザー名が入力されていれば、変更後のユーザー名をサーバー側に送る
     const username = inputForm.username.value;
-    // const email = inputForm.email.value;
-    // const profileImage = profileImageInput.files[0];
-    const formData = new FormData(); // FormDataを作成
-
+    
     if (username) formData.append('username', username);
-    // if (email) formData.append('email', email);
-    // if (profileImage) formData.append('profileImage', profileImage);
-
 
     // ユーザー名変更の処理
     if (username) {
@@ -57,22 +56,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // プロフィール画像変更の処理
-    /*
-if (profileImage) {
-  fetch('sub/updateProfileImage', {
-    method: 'POST',
-    body: formData,
-  })
-  .then((response) => response.json())
-  .then((data) => {
-    // プロフィール画像変更処理の結果を表示
-    console.log(data.message);
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
-}
-*/
+
+        // プロフィール画像が選択されていれば画像もサーバー側に送る
+        const profileImageInput = document.getElementById('profileImage');  // プロフィール画像のファイルオブジェクトを取得
+        const  profileImageFile  = profileImageInput.files[0];
+        if (profileImageFile) formData.append('profileImage', profileImageFile);
+
+        fetch('sub/updateProfileImage', {
+          method: 'POST',
+          body: formData,
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          messageArea.textContent = data.message; // メッセージを表示エリアにセット
+          // プロフィール画像フォームをリセット
+          profileImageInput.value = '';
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
 
   });
 });

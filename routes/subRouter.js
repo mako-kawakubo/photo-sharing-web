@@ -9,6 +9,7 @@ const fetchDataAndRenderPage = fetchDataAndRenderPageModule; // オブジェク�
 
 const { uploadImage } = require('../service/NewUploadImageUtils');
 const { UpdateUsername }  = require('../service/UpdateUsername');
+const { UpdateProfileImage} = require('../service/updateProfileImage');
 
 const multer = require('multer');
 const upload = multer();
@@ -174,6 +175,18 @@ router.post('/sub/renameModal',  async(req, res) => {
     res.status(500).send('An error occurred');
   }
   
+});
+
+// プロフィール画像の変更
+router.post('/sub/updateProfileImage', upload.single('profileImage'), async (req, res) => {
+  try {
+    const file = req.file;
+await UpdateProfileImage(file.buffer,req,res);
+
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('An error occurred');
+  }
 });
 
 

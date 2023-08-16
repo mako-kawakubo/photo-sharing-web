@@ -63,10 +63,13 @@
       <span class="close-button" >&times;</span>
       <h2>ユーザー設定・変更</h2>
       <form id="inputForm">
-        <label for="username">ユーザー名:</label>
-        <input type="text" id="username" name="username" placeholder="変更前：<%= username %>" required>
-        <button type="button" id="saveButton">保存</button>
+        <label for="username">ユーザー名変更:</label>
+        <input type="text" id="username" name="username" placeholder="変更前：<%= username %>" required><br>
+        <label>プロフィール画像変更：</label>
+          <input type="file" name=" profileImage" id="profileImage" class="form-control-file">
         <br><br>
+        <button type="button" id="saveButton">保存</button>
+        
         <!--
         <label for="email">Eメール:</label>
         <input type="email" id="email" name="email" required><br><br>
