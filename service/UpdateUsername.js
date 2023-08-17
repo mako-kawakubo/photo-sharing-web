@@ -57,7 +57,7 @@ imagesnapshot.forEach((childSnapshot) => {
     imagesRef.child(childKey).update(newChildData);
   }
 });
-res.json({ message: 'データが正常に更新されました' });
+res.json({ message: 'ユーザー名が更新されました' });
 };
 
 

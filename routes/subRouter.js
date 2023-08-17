@@ -3,9 +3,6 @@
 const express = require('express');
 const router = express.Router();
 const admin = require('firebase-admin');
-// TODO; 下二つ後で消す
-const fetchDataAndRenderPageModule = require('../service/fetchDataAndRenderPage');
-const fetchDataAndRenderPage = fetchDataAndRenderPageModule; // オブジェクトのメソッドとして使用するための代入
 
 const { uploadImage } = require('../service/NewUploadImageUtils');
 const { UpdateUsername }  = require('../service/UpdateUsername');
@@ -59,7 +56,7 @@ router.get('/', async (req, res) => {
     const displayImagesWithTopImg = displayImagesWithTopImgModule;
 
 
-    // TODO:fetchDataAndRenderPageは後で消す await fetchDataAndRenderPage(req, res,  './views/instagramUtils.ejs');
+    
     await displayImagesWithTopImg(req, res, './views/instagramUtils.ejs');
   } catch (error) {
     console.error('Error:', error);
@@ -138,8 +135,10 @@ router.post('/sub/renameModal',  async(req, res) => {
 
 // プロフィール画像の変更
 router.post('/sub/updateProfileImage', upload.single('profileImage'), async (req, res) => {
+  router.use(express.json());
   try {
     const file = req.file;
+    console.log(file);
 await UpdateProfileImage(file.buffer,req,res);
 
   } catch (error) {

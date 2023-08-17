@@ -3,25 +3,16 @@
 const express = require('express');
 const fs = require('fs');
 const session = require('express-session');
+const admin = require('firebase-admin');
 const router = express.Router();
 const { addNewUser } = require('../service/addNewUser.js');
 
+
 const bodyParser = require('body-parser');
+const sessionConfig = require('../config/sessionConfig'); // 新しい行を追加
+
 router.use(bodyParser.urlencoded({ extended: true }));
-
-const admin = require('firebase-admin');
-
-
-
-// TODO: 別ファイルに移し、ignore の設定ディレクトリに配置,secretkey生成処理
-// セッション設定
-router.use(session({
-  secret: 'your-secret-key',
-  resave: false,
-  saveUninitialized: true
-}));
-
-
+router.use(sessionConfig);
 
 
 const ejs = require('ejs');

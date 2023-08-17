@@ -42,7 +42,7 @@ const fetchDataAndRenderPageModule = require('../service/fetchDataAndRenderPage'
 const fetchDataAndRenderPage = fetchDataAndRenderPageModule; 
 
 router.get('/', async (req, res) => {
-// TODO:fetchDataAndRenderPageは後で消す await fetchDataAndRenderPage(req, res ,'./views/instagramUtils_main.ejs'); // fetchDataAndRenderPageを呼び出し
+
 await displayImagesWithTopImg(req, res ,'./views/instagramUtils_main.ejs');
 });
 

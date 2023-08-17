@@ -50,7 +50,7 @@ if (!userFound) {
   return;
 }
 
-res.json({ message: 'データが正常に更新されました' });
+res.json({ message: 'プロフィール画像が更新されました' });
 };
 
 module.exports = {
