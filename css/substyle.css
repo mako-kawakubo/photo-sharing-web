@@ -82,19 +82,7 @@ background-image:url("data:image/svg+xml;charset=utf8,%3Csvg id='Layer_1' xmlns=
     font-size: 16px;
     margin-right: 5px;
   }
-  /*
 
-  textarea#postText {
-    
-    width: 80%;
-     padding: 15px; 
-     border-radius: 5px;
-     border: 1px solid #ddd;
-     margin-bottom: 10px;
-     height: 60px;
-     
-   }
-   */
 
    .form-control {
     box-sizing: border-box;
@@ -124,14 +112,6 @@ background-image:url("data:image/svg+xml;charset=utf8,%3Csvg id='Layer_1' xmlns=
     margin: 0% 10%;
   }
 
-  /*
-  .container::after {
-    content: '';
-    width: calc((100% - 4 * 300px) / 3); 
-    display: inline-block;
-  }
-  */
-  
 
 .frame {
 	background: #fff;
@@ -159,6 +139,8 @@ background-image:url("data:image/svg+xml;charset=utf8,%3Csvg id='Layer_1' xmlns=
 
 .icon img {
   margin-right: 6px; /* アイコンとテキストの間にスペースを設ける */
+  border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+  background-position: left top;  /* 横長画像の左上を基準に表示 */
 }
 
 
@@ -245,11 +227,10 @@ input{
 
 
 .edit-form {
-  /* 他のスタイルがない場合、以下の2行だけで要素の最大化が可能です */
   width: 100%; /* インライン要素の幅を100%に */
   display: flex; /* フレックスコンテナに変更 */
 
-  /* 他のスタイルがある場合、以下のスタイルを追加して適切なレイアウトを保持してください */
+ 
   flex-direction: column; /* 子要素を縦に配置 */
   align-items: center; /* 子要素を中央に配置 */
   justify-content: center; /* 子要素を縦方向に中央に配置 */

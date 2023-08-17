@@ -5,13 +5,31 @@ body {
 .modal {
   display: none;
   position: fixed;
+  top: 50%; /* 上下中央に配置 */
+  left: 50%; /* 左右中央に配置 */
+  transform: translate(-50%, -50%); /* 中央揃え */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2; /* モーダルを手前に配置する */
+  justify-content: center;
+  align-items: center;
+}
+
+
+.modal-overlay {
+  display: none;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  justify-content: center;
-  align-items: center;
+  z-index: 1; /* モーダルよりも背面に配置する */
+}
+
+
+modal-content.disable{
+  display: none;
 }
 
 .modal-content {
@@ -38,3 +56,29 @@ button {
   cursor: pointer;
 }
 
+/* モーダルの左右分割要素 */
+
+.modal-content {
+  display: flex;
+}
+
+.modal-left,
+.modal-right {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modal-right {
+  border-left: 1px solid #ccc; /* 右半分と左半分の境界線 */
+  text-align: center;
+}
+
+/* モーダルのプレビュー表示要素 */
+.trim-image-to-circle {
+  width:  180px;       /* ※縦横を同値に */
+  height: 180px;       /* ※縦横を同値に */
+  border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+  background-position: left top;  /* 横長画像の左上を基準に表示 */
+  display: inline-block;          /* 複数の画像を横に並べたい場合 */
+}
