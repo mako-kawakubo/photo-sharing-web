@@ -33,10 +33,6 @@ router.get('/', (req, res) => {
   });
 });
 
-
-
-
-
 // 静的なCSSファイルを提供するためのルート
 router.use('/other', express.static('css'));
 
@@ -47,7 +43,6 @@ router.post('/login', async (req, res) => {
     // Firebase Realtime Databaseから"user"を一度すべて取得
     const userInfoSnapshot = await admin.database().ref('userinfo').once('value');
     const allUsersInfo = userInfoSnapshot.val();
-    console.log(allUsersInfo);
 
     let userFound = false;
 
@@ -86,7 +81,7 @@ router.post('/NewRegist', async (req, res) => {
   // Firebase Realtime Databaseから"user"を一度すべて取得
   const userInfoSnapshot = await admin.database().ref('userinfo').once('value');
   const allUsersInfo = userInfoSnapshot.val();
-  console.log(allUsersInfo);
+
 
   if (Object.values(allUsersInfo).some((user) => user.user == signupUsername)) {
     console.log(signupUsername + "は存在します");

@@ -138,7 +138,6 @@ router.post('/sub/updateProfileImage', upload.single('profileImage'), async (req
   router.use(express.json());
   try {
     const file = req.file;
-    console.log(file);
 await UpdateProfileImage(file.buffer,req,res);
 
   } catch (error) {

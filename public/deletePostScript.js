@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const data = await response.json();
 
                 if (data.message) {
-                    console.log(data.message);
 
                     // メッセージを表示
                     const messageElement = document.createElement('p');

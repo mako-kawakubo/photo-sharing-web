@@ -25,7 +25,6 @@ const UpdateProfileImage = async (filebuffer,req,res) => {
   });
 
   const downloadUrl = urls[0];  // 更新する画像URL
-  console.log(downloadUrl);
 
   // userinfoテーブルのtopimg更新
 const snapshot = await userInfoRef.once('value');
@@ -40,7 +39,6 @@ let beforeProfileUrl = null; // 以前のプロフィール画像は削除
 
 for (const [key,value] of Object.entries(userInfoData)) {
   if (key === loggedInUserKey) {
-    console.log(value.topimg);
     beforeProfileUrl = value.topimg
     await userInfoRef.child(loggedInUserKey).update({ topimg: downloadUrl });
 

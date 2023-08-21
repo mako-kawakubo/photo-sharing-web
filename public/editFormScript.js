@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   editButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
       editForm[index].style.display = "block";
-//      const editInput = editForm[index].querySelector(".editInput");
+
 
 
       // 保存ボタン
