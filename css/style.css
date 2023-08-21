@@ -1,0 +1,8 @@
+h1 {
+  color: rgb(255, 0, 64);
+  font-size:50px;
+}
+.navbar a,
+.navbar p {
+  color: white;
+}

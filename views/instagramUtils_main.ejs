@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="main/substyle.css" />
+    <link rel="stylesheet" type="text/css" href="main/substyle-button.css" />
+    <meta charset="utf-8" />
+    <title>トップページ</title>
+  </head>
+
+  <body>
+    <header class="header-3">
+      <div class="header-inner">
+        <a href="/" class="heading1">みんなのカフェ投稿</a>
+        <% if (isLoggedIn) { %>
+        <p><%= username %>さんこんにちは！</p>
+
+        <nav class="header-nav">
+          <div class="header-nav-item">
+            <p>
+              <a href="/sub/" class="header-button header-login"
+                >マイページへ</a
+              >
+            </p>
+          </div>
+          <div class="header-nav-item">
+            <a href="/logout" class="header-button header-post">ログアウト</a>
+          </div>
+          <!-- ログイン中はログアウトボタンを表示 -->
+          <% } else { %>
+          <nav class="header-nav">
+            <div class="header-nav-item">
+              <a href="/other/Regist" class="header-button header-login">新規登録</a>
+            </div>
+            <div class="header-nav-item">
+              <a href="/other/" class="header-button header-post">ログイン</a>
+            </div>
+          </nav>
+        </nav>
+        <% } %>
+      </div>
+    </header>
+
+    <section>
+      <div class="container">
+        <% imageData.forEach((image, index)=> { %>
+        <div class="frame">
+          <div class="photo_head flex">
+            <div class="icon">
+              <% if(image.topimg === null) { %>
+              <img
+                width="48"
+                height="48"
+                src="https://img.icons8.com/emoji/48/rabbit-face-emoji.png"
+                alt="rabbit-face-emoji"
+              />
+              <% }else{ %>
+              <img
+                width="48"
+                height="48"
+                src="<%= image.topimg  %>"
+                alt="rabbit-face-emoji"
+              />
+              <% } %>
+              <p>@<%= image.user %></p>
+            </div>
+          </div>
+
+          <div class="post">
+            <img
+              src="<%= image.url %>"
+              alt="<%= image.name %>"
+              class="card-img-top"
+            />
+            <p><%= image.name %></p>
+          </div>
+          <div class="link_area flex">
+            <div class="left flex">
+              <span
+                ><img
+                  src="https://img.icons8.com/glyph-neue/64/love-circled--v1.png"
+                  alt="love-circled--v1"
+              /></span>
+              <span
+                ><img
+                  src="https://img.icons8.com/external-inkubators-detailed-outline-inkubators/25/external-comment-video-interface-inkubators-detailed-outline-inkubators.png"
+                  alt="external-comment-video-interface-inkubators-detailed-outline-inkubators"
+              /></span>
+              <span
+                ><img
+                  src="https://img.icons8.com/external-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto/64/external-paper-plane-design-thinking-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto.png"
+                  alt="external-paper-plane-design-thinking-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto"
+              /></span>
+            </div>
+            <div class="right">
+              <span
+                ><img
+                  width="32"
+                  height="32"
+                  src="https://img.icons8.com/external-anggara-outline-color-anggara-putra/32/external-bookmark-ecommerce-interface-anggara-outline-color-anggara-putra.png"
+                  alt="external-bookmark-ecommerce-interface-anggara-outline-color-anggara-putra"
+              /></span>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

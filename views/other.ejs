@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="other/otherstyle.css" />
+    <meta charset="UTF-8" />
+    <title>ログイン</title>
+  </head>
+
+  <body>
+    <header class="header-3">
+      <div class="header-inner">
+        <a href="/" class="heading1">みんなのカフェ投稿</a>
+      </div>
+    </header>
+    <hgroup>
+      <h1>ログインフォーム</h1>
+      <h3>@から始まるユーザ名を入力してください</h3>
+    </hgroup>
+    <form action="/other/login" method="post">
+      <div class="group">
+        <input type="text" id="username" name="username" required /><span
+          class="highlight"
+        ></span
+        ><span class="bar"></span>
+        <label for="username">ユーザー名(例:test1user1)</label>
+      </div>
+      <button type="submit" class="button buttonBlue">ログイン</button>
+    </form>
+    <div class="button-container">
+      <button id="showSignupForm" class="button buttonRed">
+        新規登録ページへ
+      </button>
+    </div>
+
+    <script src="/SigninPage.js"></script>
+  </body>
+</html>

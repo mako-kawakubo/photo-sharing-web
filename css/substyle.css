@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300&display=swap');
+
+header .heading1 {
+  font-size: 1.5em;
+  color: #333;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  text-decoration: none;
+}
+
+header
+  .header-3 {
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: none;
+    height: 60px;
+    padding: 0 0.8em;
+    margin: 10px 10px 50px;
+    font-size: 1.2em;
+    border-bottom: 3px solid #ccc;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-nav-item {
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+  }
+
+
+  .header-button {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0.8em 1em;
+    font-size: 17px;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .header-login {
+    color: #999;
+    font-weight: bold;
+  }
+
+  .header-post {
+    font-weight: bold;
+    color: #fff;
+    background: #00b5ad;
+    border: 1px #00b5ad solid;
+    border-radius: 3px;
+  }
+  
+  @media screen and (max-width: 480px) {
+    .header-post {
+      display: none;
+    }
+  }
+
+
+
+
+body {
+  background-color: rgb(28 117 15 / 23%);
+fill:#fff;
+background-size:1px 1px;
+background-repeat:repeat;
+background-image:url("data:image/svg+xml;charset=utf8,%3Csvg id='Layer_1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500' fill-opacity='1' style='enable-background:new 0 0 500 500'%3E%3Cstyle%3E .st0{fill:rgba(255,255,255,1)} %3C/style%3E%3Ccircle class='st0' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='336.6' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='336.6' r='12.7'/%3E%3Cg%3E%3Ccircle class='st0' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='.7' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='.7' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='419.5' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='419.5' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='500.7' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='500.7' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='170.9' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='170.9' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='253.8' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='253.8' r='12.7'/%3E%3C/g%3E%3Cg%3E%3Ccircle class='st0' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='83.3' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='166.7' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='250' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='333.3' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='416.7' cy='88' r='12.7'/%3E%3Ccircle class='st0' cx='500' cy='88' r='12.7'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.box17{
+  margin: 20px 20%;
+  position: relative;
+  padding: 0.5em 1.5em;
+  border-top: solid 2px black;
+  border-bottom: solid 2px black;
+}
+.box17:before, .box17:after{
+  content: '';
+  position: absolute;
+  top: -10px;
+  width: 2px;
+  height: -webkit-calc(100% + 20px);
+  height: calc(100% + 20px);
+  background-color: black;
+}
+.box17:before {left: 10px;}
+.box17:after {right: 10px;}
+.box17 p {
+  margin: 0; 
+  padding: 0;
+}  
+
+
+.uploadBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: fit-content; 
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+}
+
+.uploadBox form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.uploadBox form label {
+    margin-bottom: 10px; /* ラベル間の余白を調整 */
+}
+
+.uploadBox form textarea {
+    height: 100px; /* テキストエリアの初期の高さを設定 */
+}
+
+.uploadBox form button {
+    align-self: auto; /* ボタンを左寄せに配置 */
+}
+
+
+
+  .message {
+    color: #ff5555;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .fileUpload {
+    position: relative;
+    overflow: hidden;
+    background-color: #f3f3f3;
+    color: #fff;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .fileUpload input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    color: #868283;
+  }
+  
+  .uploadIcon::before {
+    content: "+";
+    font-size: 16px;
+    margin-right: 5px;
+  }
+
+
+   .form-control {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+    border: solid 1px #ccc;
+    border-radius: 6px;
+    outline: 0;
+    transition: 0.3s;
+    -webkit-appearance: none;
+  }
+  
+  .form-control:focus {
+    border: 1px solid #00b5ad;
+  }
+  
+
+  
+  .container{   
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0% 10%;
+  }
+
+
+.frame {
+	background: #fff;
+	border-radius: 24px;
+	box-shadow: 5px 5px 15px rgba(0, 0, 0, .3);
+	padding: 20px 14px 10px;
+	width: 20%;
+	font-size: 14px;
+    margin: 5px; /* タイル間の余白 */
+  height: auto;
+  break-inside: avoid;
+  margin-block-end: auto;
+}
+
+.photo_head {
+  align-items: center;
+  padding-bottom: 14px;
+}
+
+.icon {
+  display: flex; /* flexを使ってアイコンとテキストを横並びにする */
+  align-items: center; /* アイコンとテキストを垂直方向に中央揃え */
+  padding-right: 6px;
+}
+
+.icon img {
+  margin-right: 6px; /* アイコンとテキストの間にスペースを設ける */
+  border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+  background-position: left top;  /* 横長画像の左上を基準に表示 */
+}
+
+
+
+.post {
+    width: 100%;
+    max-width: 100%; /* 画像を.frame要素の幅に合わせて自動的に縮小 */
+    max-height: 100%;
+	position: relative;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+
+.link_area {
+    display: flex;
+	justify-content: space-between;
+	padding-top: 10px;
+  padding-bottom: 50px;
+}
+.link_area .left {
+    display: flex;
+	/*justify-content: space-between;*/
+    align-items: center;
+	/*width: 30%;*/
+}
+.link_area .left span {
+    margin-right: 10px; 
+  }
+  
+  .link_area .left span:last-child {
+    margin-right: 0; 
+  }
+
+  .link_area .right {
+    display: flex; 
+    align-items: center; 
+  }
+  
+  .link_area .right span {
+    margin-left: 10px; 
+  }
+  
+  .link_area .right span:first-child {
+    margin-left: 0; 
+  }
+  
+  .link_area span img {
+    width: 20px; 
+    height: 20px;
+  }
+  
+
+.post img {
+    height:auto;
+    max-width:100%;
+    max-height:100% ; 
+    width: 100%; 
+    object-fit: cover; 
+  }
+
+  /* フォーム要素内のラベルと入力フィールドのスタイル */
+  label {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  
+  input[type="file"],
+  button {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: auto;
+    margin-bottom: 30px;
+  }
+  
+input{
+  padding: 10px 15px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    color: #868283;
+}
+
+
+.edit-form {
+  width: 100%; /* インライン要素の幅を100%に */
+  display: flex; /* フレックスコンテナに変更 */
+
+ 
+  flex-direction: column; /* 子要素を縦に配置 */
+  align-items: center; /* 子要素を中央に配置 */
+  justify-content: center; /* 子要素を縦方向に中央に配置 */
+}
+
+.editInput {
+  width: 100%; /* 最大化のために幅を100%に */
+  height: 100%; /* 最大化のために高さを100%に */
+  box-sizing: border-box; /* ボーダーボックスモデルを使用して内部の幅と高さを制御 */
+  resize: none; /* テキストエリアのリサイズを無効化 */
+}

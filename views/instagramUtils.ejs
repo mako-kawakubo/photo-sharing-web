@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="sub/substyle.css" />
+    <link rel="stylesheet" type="text/css" href="sub/substyle-button.css" />
+    <link rel="stylesheet" type="text/css" href="sub/modal.css" />
+    <meta charset="utf-8" />
+    <title>サブページ</title>
+    <script src="editFormScript.js"></script>
+    <script src="deletePostScript.js"></script>
+    <script src="modal.js"></script>
+  </head>
+
+  <body>
+    <header class="header-3">
+      <div class="header-inner">
+        <a href="/" class="heading1">みんなのカフェ投稿</a>
+        <% if (isLoggedIn) { %>
+          <p><%= username %>さんのマイページ</p>
+          <% } %>
+        <nav class="header-nav">
+          <div class="header-nav-item">
+            <button id="openModalButton" class="header-button header-post">
+              ユーザー設定・変更
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <section>
+      <!--<p><a href="/">TOPページへ</a></p>-->
+
+      <!--<button id="openModalButton">ユーザー設定・変更</button>-->
+
+      <div class="modal-overlay"></div>
+      <div id="modal" class="modal">
+        <div class="modal-content disable">
+          <h2>ユーザー設定・変更</h2>
+          <span class="close-button">&times;</span>
+          <div class="modal-container">
+            <div class="modal-left">
+              <form id="inputForm">
+                <div class="input-group">
+                  <label for="username"></label
+                  ><!--"ユーザー名:"-->
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="変更前：<%= username %>"
+                  />
+                </div>
+                <div class="input-group">
+                  <label for="profileImage"></label
+                  ><!--プロフィール画像変更 -->
+                  <input
+                    type="file"
+                    name="profileImage"
+                    id="profileImage"
+                    class="form-control-file"
+                  />
+                </div>
+              </form>
+              <div class="modal-buttons">
+                <button type="button" id="saveButton">保存</button>
+                <button tyoe="button" id="closeModalButton">閉じる</button>
+              </div>
+
+              <div id="messageArea1" class="message-area1"></div>
+              <div id="messageArea2" class="message-area2"></div>
+            </div>
+
+            <div class="modal-right">
+              <p>
+                プロフィール画像プレビュー<br />
+                <img id="preview" src="" class="trim-image-to-circle" />
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        function previewImage(input) {
+          if (input.files && input.files[0]) {
+            var fileReader = new FileReader();
+            fileReader.onload = function () {
+              document.getElementById("preview").src = fileReader.result;
+            };
+            fileReader.readAsDataURL(input.files[0]);
+          }
+        }
+      </script>
+      <div class="box17">
+        <div class="uploadBox">
+          <form
+            action="sub/uploadImage"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <% if (typeof message !=='undefined' ) { %>
+            <p><%= message %></p>
+            <% } %>
+            <label>
+              画像をアップロード
+              <input type="file" name="image" class="form-control-file" />
+            </label>
+            <br />
+            <label>
+              投稿文を入力
+
+              <textarea
+                type="text"
+                name="postText"
+                id="postText"
+                class="form-control"
+                placeholder="キャプションを入力"
+              ></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary">アップロード</button>
+          </form>
+        </div>
+      </div>
+      <div class="container">
+        <% imageData.forEach((image, index)=> { %>
+        <div class="frame">
+          <div class="photo_head flex">
+            <div class="icon">
+              <% if(image.topimg === null) { %>
+              <img
+                width="48"
+                height="48"
+                src="https://img.icons8.com/emoji/48/rabbit-face-emoji.png"
+                alt="rabbit-face-emoji"
+              />
+              <% } else { %>
+              <img
+                width="48"
+                height="48"
+                src="<%= image.topimg  %>"
+                alt="rabbit-face-emoji"
+              />
+              <% } %>
+
+              <p>@<%= image.user %></p>
+            </div>
+          </div>
+
+          <div class="post">
+            <img
+              src="<%= image.url %>"
+              alt="<%= image.name %>"
+              class="card-img-top"
+            />
+            <p><%= image.name %></p>
+          </div>
+
+          <div class="edit-form" style="display: none">
+            <form action="/sub/edit" method="post">
+              <input type="hidden" name="imageId" value="<%= image.id %>" />
+              <p class="upload-message"></p>
+              <input
+                type="text"
+                name="editedText"
+                id="editInput"
+                class="editInput"
+                value="<%= image.name %>"
+              />
+              <button type="submit" class="saveEditButton" id="saveEditButton">
+                <span class="bn54span">保存</span>
+              </button>
+              <button type="button" class="closeFormButton">
+                <span class="bn54span"> 閉じる </span>
+              </button>
+            </form>
+          </div>
+
+          <div class="link_area flex">
+            <div class="left flex">
+              <span
+                ><img
+                  src="https://img.icons8.com/glyph-neue/64/love-circled--v1.png"
+                  alt="love-circled--v1"
+              /></span>
+              <span
+                ><img
+                  src="https://img.icons8.com/external-inkubators-detailed-outline-inkubators/25/external-comment-video-interface-inkubators-detailed-outline-inkubators.png"
+                  alt="external-comment-video-interface-inkubators-detailed-outline-inkubators"
+              /></span>
+              <span
+                ><img
+                  src="https://img.icons8.com/external-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto/64/external-paper-plane-design-thinking-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto.png"
+                  alt="external-paper-plane-design-thinking-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto"
+              /></span>
+            </div>
+            <div class="right">
+              <span
+                ><img
+                  width="32"
+                  height="32"
+                  src="https://img.icons8.com/external-anggara-outline-color-anggara-putra/32/external-bookmark-ecommerce-interface-anggara-outline-color-anggara-putra.png"
+                  alt="external-bookmark-ecommerce-interface-anggara-outline-color-anggara-putra"
+              /></span>
+            </div>
+          </div>
+
+          <div class="button-container">
+            <button class="bn54 edit-button" data-index="<%= index %>">
+              <span class="bn54span">
+                <div class="edit icon"></div>
+                編集
+              </span>
+            </button>
+            <button
+              class="bn54 delete-button"
+              data-index="<%= index %>"
+              data-post-id="<%= image.id %>"
+            >
+              <span class="bn54span">
+                <div class="trash icon"></div>
+                削除
+              </span>
+            </button>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

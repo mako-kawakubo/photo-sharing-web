@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="other/otherstyle.css" />
+    
+    <meta charset="UTF-8" />
+    <title>新規登録</title>
+  </head>
+
+  <body>
+    <header class="header-3">
+      <div class="header-inner">
+        <a href="/" class="heading1">みんなのカフェ投稿</a>
+      </div>
+    </header>
+    <hgroup>
+      <h1>新規登録</h1>
+      <h3>登録するユーザ名を入力してください</h3>
+      <% if (serverMessage) { %>
+        <p><%= serverMessage %></p>
+        <% } %>
+    </hgroup>
+
+    <form id="signupForm" action="/other/NewRegist" method="post" required>
+      <div class="group">
+        <input type="text" name="signupUsername" required />
+        <span class="highlight"></span><span class="bar"></span>
+        <label for="username">ユーザー名(例:test1user1)</label>
+      </div>
+      <div class="button-container">
+        <button type="submit" class="button buttonBlue">登録</button>
+      </div>
+    </form>
+    <div class="button-container">
+      <button id="showSignInForm" class="button buttonRed">
+        ログインページへ
+      </button>
+    </div>
+
+    <script src="/SigninPage.js"></script>
+  </body>
+</html>
