@@ -1,24 +1,4 @@
-/* デフォルト設定
-button {
-    margin-top: 20px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-  }
 
-  button.btn.btn-primary {
-    padding: 10px 20px;
-    background-color: #3897f0;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button.btn.btn-primary:hover {
-    background-color: #357ae8;
-  }
-  */
   
   
   .bn54,
@@ -29,7 +9,6 @@ button {
     outline: none;
     text-decoration: none;
     border-radius: 50px;
-    /*display: flex;*/
     justify-content: center;
     align-items: center;
     cursor: pointer;

@@ -1,66 +1,37 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <link rel="stylesheet" type="text/css" href="other/otherstyle.css">
-    <meta charset="UTF-8">
+  <head>
+    <link rel="stylesheet" type="text/css" href="other/otherstyle.css" />
+    <meta charset="UTF-8" />
     <title>ログイン</title>
-</head>
+  </head>
 
-
-
-<body>
+  <body>
+    <header class="header-3">
+      <div class="header-inner">
+        <a href="/" class="heading1">みんなのカフェ投稿</a>
+      </div>
+    </header>
     <hgroup>
-        <h1>ログインフォーム</h1>
-        <h3>@から始まるユーザ名を入力してください</h3>
+      <h1>ログインフォーム</h1>
+      <h3>@から始まるユーザ名を入力してください</h3>
     </hgroup>
     <form action="/other/login" method="post">
-        <div class="group">
-            <input type="text" id="username" name="username" required><span class="highlight"></span><span
-                class="bar"></span>
-            <label for="username">ユーザー名(例:test1user1)</label>
-        </div>
-        <button type="submit" class="button buttonBlue">
-            ログイン
-            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
-        </button>
+      <div class="group">
+        <input type="text" id="username" name="username" required /><span
+          class="highlight"
+        ></span
+        ><span class="bar"></span>
+        <label for="username">ユーザー名(例:test1user1)</label>
+      </div>
+      <button type="submit" class="button buttonBlue">ログイン</button>
     </form>
-    <br>
+    <div class="button-container">
+      <button id="showSignupForm" class="button buttonRed">
+        新規登録ページへ
+      </button>
+    </div>
 
-    <!-- SignUpボタン -->
-    <button id="showSignupForm" class="button buttonBlue">SignUp</button>
-
-    <% if (serverMessage) { %>
-        <p><%= serverMessage %></p>
-    <% } %>
-
-    <!-- 登録フォーム -->
-    <form id="signupForm" action="/other/signup" method="post" style="display: none;">
-        
-        <input type="text" name="signupUsername" required>
-        <button type="submit">新規登録</button>
-    </form>
-
-
-
-    <a href="/">TOPページへ戻る</a>
-    <script>
-        // SignUpボタンをクリックした際の動作
-        const showSignupFormButton = document.getElementById("showSignupForm");
-        const signupForm = document.getElementById("signupForm");
-        const serverMessageElement = document.getElementById("serverMessage");
-    
-        showSignupFormButton.addEventListener("click", function () {
-            signupForm.style.display = "block";
-        });
-    
-        const serverMessage = null;
-        if (serverMessage) {
-            const serverMessage = "<%= serverMessage %>"; // サーバーから受け取ったメッセージを埋め込む
-            serverMessageElement.textContent = serverMessage;
-        }
-        
-    </script>
-</body>
-
+    <script src="/SigninPage.js"></script>
+  </body>
 </html>

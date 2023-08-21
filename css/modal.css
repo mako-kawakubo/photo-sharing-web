@@ -2,6 +2,69 @@ body {
   font-family: Arial, sans-serif;
 }
 
+h2{
+  font-size: 1.5em;
+  color: #333;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  text-decoration: none;
+}
+
+/* ラベル全体にスタイルを適用 */
+label[for="username"] {
+  font-size: 16px;
+  color: #333;
+}
+
+label[for="profileImage"]{
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* ラベルのテキスト部分にスタイルを適用 */
+label[for="username"]::after {
+  content: "ユーザー名:";
+  font-weight: bold;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+}
+
+label[for="profileImage"]::after {
+  content: "プロフィール画像変更：";
+  font-weight: bold;
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+}
+
+#username,
+#profileImage {
+  display: block; 
+  margin: 10px 0; /* 余白を追加 */
+}
+
+/* labelとinoutを左右に配置する */
+#inputForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  flex: 1;
+  margin-right: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.input-group input {
+  flex: 2;
+}
+
+
+
 .modal {
   display: none;
   position: fixed;
@@ -39,26 +102,67 @@ modal-content.disable{
   position: relative;
 }
 
-.close-button {
+.close-button {  
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 24px;
+  font-size: 35px;
   cursor: pointer;
 }
 
-button {
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
+#saveButton,
+#closeModalButton{
+  position: static;
+  outline: none;
+  text-decoration: none;
+  border-radius: 50px;
   cursor: pointer;
+  text-transform: uppercase;
+  height: 35px;
+  opacity: 1;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  margin-bottom: 0;
+  margin-top: auto;
+  padding: 0;
+  width: 150px;
+  color: #000000;
+  font-family: 'Zen Maru Gothic', sans-serif;
 }
+
+#profileImage{
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  height: fit-content;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  padding: 0;
+  width: 150px;
+  color: #000000;
+  font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+/* 保存ボタンと閉じるボタンの配置 */
+
+.modal-buttons {
+  margin-top: 50px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.modal-buttons button {
+  margin-left: 10px;
+}
+
+
 
 /* モーダルの左右分割要素 */
 
-.modal-content {
+
+.modal-container
+{
   display: flex;
 }
 
@@ -74,11 +178,14 @@ button {
   text-align: center;
 }
 
+.modal-right p {
+  font-family: 'Zen Maru Gothic', sans-serif;
+}
 /* モーダルのプレビュー表示要素 */
 .trim-image-to-circle {
-  width:  180px;       /* ※縦横を同値に */
-  height: 180px;       /* ※縦横を同値に */
-  border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
-  background-position: left top;  /* 横長画像の左上を基準に表示 */
-  display: inline-block;          /* 複数の画像を横に並べたい場合 */
+  width:  180px;       
+  height: 180px;       
+  border-radius: 50%;  
+  background-position: left top;  
+  display: inline-block;          
 }

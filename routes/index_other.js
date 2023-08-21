@@ -79,7 +79,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.post('/signup', async (req, res) => {
+router.post('/NewRegist', async (req, res) => {
   const { signupUsername } = req.body;
   console.log(signupUsername + ":req.body");
 
@@ -90,12 +90,13 @@ router.post('/signup', async (req, res) => {
 
   if (Object.values(allUsersInfo).some((user) => user.user == signupUsername)) {
     console.log(signupUsername + "は存在します");
-    const serverMessage = `${signupUsername} は既に存在します`;
-    res.render('other', { serverMessage });
+    req.session.serverMessage =`${signupUsername} は既に存在します`;
+    res.redirect('/other/Regist');
   } else {
     addNewUser(signupUsername)
     console.log(signupUsername + "を登録");
-    res.redirect('/');
+    req.session.serverMessage = `${signupUsername} を登録しました`;
+    res.redirect('/other/Regist');
   }
 });
 
@@ -103,5 +104,27 @@ router.post('/signup', async (req, res) => {
 router.get('/return-to-top', (req, res) => {
   res.redirect('/');
 })
+
+// 新規登録用ページを表示
+router.get('/Regist', (req, res) => {
+
+  const serverMessage = req.session.serverMessage; // セッションからメッセージを取得
+  req.session.serverMessage = null; // メッセージを取得したらセッションから削除
+
+  // テンプレートのパス
+  const templatePath = './views/NewRegist.ejs';
+
+  // サーバーサイドでレンダリング
+  ejs.renderFile(templatePath, { serverMessage}, (err, renderedHtml) => {
+    if (err) {
+      console.error('Failed to render EJS template:', err);
+      res.status(500).send('Failed to render EJS template');
+    } else {
+      res.send(renderedHtml);
+    }
+    res.end();
+  });
+});
+
 
 module.exports = router;
