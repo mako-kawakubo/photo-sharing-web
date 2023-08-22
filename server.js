@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+// アプリケーションのポート番号を8080に変更
+const port = 8080;
 const fs = require('fs');
 
 app.set('view engine', 'ejs'); // EJSをビューエンジンとして設定
@@ -29,6 +30,8 @@ app.use((req, res) => {
   res.status(404).send('お探しのページは見つかりません。');
 });
 
-app.listen(port, () => {
+
+// アプリケーションのリッスンアドレスを0.0.0.0に変更
+app.listen(port, '0.0.0.0', () => {
   console.log(`The server has started and is listening on port number: ${port}`);
 });
