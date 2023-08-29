@@ -13,3 +13,7 @@
     * 新規投稿データのアップロード  
     * ログイン中ユーザーが過去に投稿した投稿データの投稿文編集  
     * ログイン中ユーザーが過去に投稿した投稿データの削除  
+
+# 構成  
+構成：NodeJS,FirebaseRealtimeDatabase+Storage,EJS(+HTML,CSS)  
+デプロイ：fly.io
